@@ -1,0 +1,19 @@
+# Meteor packages used by this project, one per line.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+standard-app-packages
+insecure
+simple-schema
+collection2
+collection-helpers
+service-configuration
+iron-router
+googleAnalytics
+autoform
+accounts-ui
+accounts-base
+accounts-password
+single-page-login
+cloudinary

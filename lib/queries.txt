@@ -1,0 +1,7 @@
+/*
+db.commentsmet.insert({totalcomments: 0, totallikes: 0, users: [{userid: "foobar", likes: 0, comments: 0}]} )
+db.commentsmet.update({}, { $push: {users: {userid: "barfoo", likes: 0, comments: 0}} })
+db.commentsmet.find({'users.userid': 'barfoo'})
+
+db.commentsmet.update({'users.userid': 'barfoo'}, {'$inc': {'users.$.likes': 1}})
+*/

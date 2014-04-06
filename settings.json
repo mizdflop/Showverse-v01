@@ -1,0 +1,8 @@
+{
+    "public":{
+        "googleAnalytics": {
+            "id": "UA-49396114-1",
+            "host": "showverse.meteor.com"
+        }
+    }
+}

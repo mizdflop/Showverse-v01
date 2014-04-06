@@ -1,0 +1,28 @@
+<template name="homepage">
+		<div class="login_area"><!--START LOGIN AREA-->
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">
+						
+						<div class="login_box"><!--LOGINBOX-->
+							<h2 class="title_text">Showverse Sync</h2>
+							<p class="subtitle_text">Watch your favourite TV shows with your favourite friends.</p>
+							<div class="current_playing_box"><!--CURRENT PLAYING EPISODE-->
+								<h4>Now Playing</h4>
+								<a href="/episodes" class="episode_thumbnail"><img src="img/current_playing.png" alt="CURRENT PLAYING"></a>
+								<h4 class="episode_title"><a href="#">Deadwood Season 1</a></h4>
+								<p>Exclusively for <a href="http://nattercast.com/" id="hplogin">NatterCast</a> members.</p>
+							</div>
+							<div class="login_button"><!--LOGIN BUTTON-->
+								{{{buttonPlacement}}}
+							</div>
+						</div><!--END LOGIN BOX-->
+						
+						<div class="feedback_box"><!--FEEDBACK BOX-->
+							<p><strong>Let us know what you think?</strong><br>We need your feedback. Tell us what you do and don't like about this experience by using the Feedback button on the ride side of each page.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--END LOGIN AREA-->
+</template>

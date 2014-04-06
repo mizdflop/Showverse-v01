@@ -1,0 +1,30 @@
+<template name="modal">
+		<div class="modal fade all_user_list_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content user_modal">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+							<h4 class="modal-title">Show/Hide User Comments <span class="total_user">({{totalCommentors}} users)</span></h4>
+					</div>
+					<div class="modal-body">
+						<table class="table user_table">
+							<tbody>
+							{{#each getCommentors}}
+								<tr>
+									<td class="check_box"><input class="checkbox"  type="checkbox" checked></td>
+									<td class="photo"><img src="{{getCommentors_picture}}" alt="USER"></td>
+									<td class="name">{{getCommentors_userName}}</td>
+									<td class="comment"><i class="glyphicon glyphicon-comment"></i> {{getCommentors_totalComments}} Comments</td>
+								</tr>
+							{{/each}}
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+</template>

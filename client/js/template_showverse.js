@@ -1,0 +1,390 @@
+Session.set("playPause", "glyphicon-play");
+Session.set("unseenUsers", []);
+Session.set("selectPicker", 1);
+Session.set("sessionRunTime", 0);
+Session.setDefault("isSliding", 0);
+Session.set("sliderInitialized", 0)
+Session.set("timeOfPress",0);
+Session.set("modalShown", 0);
+dataArray = [];
+var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+Template.showverse.theComments = function() {
+	//console.log(Session.get("unseenUsers"));
+	if (Session.get("selectPicker")== 1){
+		return Comments.find(
+			{
+				episodeId: Session.get("episodeId"), 
+				commentRunTime: {$lte: Session.get("sessionRunTime")},
+				userId: {$nin:  Session.get("unseenUsers") }, 
+			}, 
+			{sort: 
+				{commentRunTime: -1, 
+				timestamp: -1}, 
+				limit: 30 
+			}
+		);
+	} else if (Session.get("selectPicker")== 2){
+	return Comments.find(
+			{
+				episodeId: Session.get("episodeId"), 
+				commentRunTime: {$lte: Session.get("sessionRunTime")},
+				userId: {$nin:  Session.get("unseenUsers") }, 
+				likesCount: {$gt: 0}
+			}, 
+			{sort: 
+				{commentRunTime: -1, 
+				timestamp: -1}, 
+				limit: 30 
+			}
+		);
+	}
+}
+
+Template.showverse.helpers({ 
+	isSpecial: function(){
+		if(Session.equals("nameForInserts", "Show Notes")){
+			return "special";
+		}
+	},
+	userPhoto: function(){
+		return Meteor.user().profile[0].picture;
+	},
+
+	totalComments: function() {
+		result = Comments.find({}).count();
+		return result;		
+	},
+	ismine: function() {
+		if(this.userId==Meteor.userId()){
+			return true;
+		}		
+	},
+	commentorName: function() {
+		return this.userName;
+	},
+	commentText: function(){
+  		return this.commentText;
+	},
+	commentRunTime: function(){
+		return inMinutesSeconds(this.commentRunTime);
+	},
+	total_likes: function() {
+		return this.likesCount;		
+	},
+
+	picture: function() {
+		return this.picture;
+	},
+	likeunliketext: function() {
+		if (Comments.find( {_id: this._id, likers: Meteor.userId()} ).count()) {
+			Session.set(this._id, "UserLikesIt");	
+			return "Unlike";
+		
+		} else {
+			Session.set(this._id, "UserDoesntLikesIt");
+			return "Like";
+		}		
+	},
+	runtime: function(){
+		if(Session.get("sliding")){
+			return inMinutesSeconds(Session.get("sliding"));
+		} else {
+			return inMinutesSeconds(Session.get("sessionRunTime"));
+		}		
+	},
+	runtime_sliding: function() {
+		return inMinutesSeconds(Session.get("sliding"));
+	},
+	icontype: function() {
+		return Session.get("playPause");
+	},
+});
+
+Template.showverse.events({
+	'click .like_button, click .like_number' : function() {
+		//id of the comment
+		var theID = this._id;
+		//get id of the user for use in updating CommentsMeta
+		var metaId = CommentsMeta.findOne({userId: this.userId});
+
+		//console.log(metaId._id);
+		var timestamp = Date.now();
+		if(Session.equals(theID, "UserDoesntLikesIt")){
+			Comments.update(
+				{ _id: this._id},
+				{$inc: {likesCount: 1}, $push: {likers: Meteor.userId()}}				
+			);
+			CommentsMeta.update(
+				{_id: metaId._id},
+				{$inc: {totalLikes: 1}}
+			)
+		} else if(Session.equals(theID, "UserLikesIt")){
+			Comments.update(
+				{ _id: this._id},
+				{$inc: {likesCount: -1}, $pull: {likers: Meteor.userId()}}				
+			);
+			CommentsMeta.update(
+				{_id: metaId._id},
+				{$inc: {totalLikes: -1}}
+			)
+		}
+	},
+	'click .delete_post': function() {
+		//console.log('I ame here');
+		Comments.remove({_id: this._id});
+		CommentsMeta.update({_id: Session.get("CommentsMetaId")}, {'$inc': {totalComments: -1}});
+
+	},
+	'click #playPause':function(event,template){
+		playPause();
+	},
+	'keypress #inputbox': function (e){ 
+		//console.log("hey");
+		if(e.charCode == 13) {		
+			//console.log("how many times");
+			var timestamp = Date.now();
+			var commentText = $('#inputbox').val();
+			if (commentText.length < 1) { return false; }
+			Comments.insert({
+					userId: Meteor.userId(),
+					timestamp: timestamp,
+					commentText: commentText,
+					commentRunTime: Session.get ('sessionRunTime'),
+    	   			userName: Session.get("nameForInserts"),
+	       			picture: Session.get("imageForInserts"),
+					idString: Session.get("idString"),
+					likesCount:0,
+					likers:[]
+				}, function(err, theId){
+					//console.log(err);
+					//console.log(theId);
+
+				}
+			);
+			CommentsMeta.update(
+					{_id: Session.get("CommentsMetaId")}, 
+					{'$inc': {totalComments: 1}}
+			);
+
+			$('#inputbox').val("");
+			event.preventDefault();
+			event.stopPropagation();
+			return false; 
+		}
+		
+	},
+	'change #thispicker': function(e){
+		var theValue = parseInt( $('#thispicker :selected').val());
+		Session.set("selectPicker", theValue);
+			/*for(var i=1; i<201; i++){
+				Comments.insert({
+				userId: Meteor.userId(),
+				commentText: "this is a tool comment",
+				commentRunTime: i,
+	   			userName: Session.get("nameForInserts"),
+	   			picture: Session.get("imageForInserts"),
+				idString: Session.get("idString"),
+				likesCount:0,
+				likers:[]
+				}, function(err, theId){
+					//console.log(err);
+					//console.log(theId);
+
+				});
+			}*/		
+	},
+
+
+	
+});
+Template.showverse.rendered = function ()
+{
+	console.log("did i rerender");
+	$( "#timer" ).slider({
+		range: "min",
+		value: Session.get("sessionRunTime"),
+		min: 1,
+		max: 3600,
+		stop: function( event, ui ) {
+			Session.set("sliding", 0);
+			Session.set("runTimeFromSlider",1);
+			console.log(Session.get("runTimeFromSlider"));
+			Session.set("sessionRunTime", ui.value);						
+		},
+		slide: function (event, ui) {
+			Session.set("sliding", ui.value);				
+		}
+	});	
+	// Assuming you're using jQuery 
+   $('body').on('keydown',function(e) { 
+   		if(Session.equals("timeOfPress",0) || Session.get("timeOfPress")+50 < Date.now()){
+			if(e.which==32 && e.target.id!="inputbox"){
+				e.preventDefault();
+				playPause();				
+				Session.set("timeOfPress", Date.now());					
+			}
+		}	
+	});
+   if(!Meteor.user().profile){
+   		Session.set("nameForInserts", Meteor.user().username);
+   		Session.set("imageForInserts", "/img/placeholder.jpg");
+   } else{
+   		Session.set("imageForInserts", Meteor.user().profile[0].picture);
+   		Session.set("nameForInserts", Meteor.user().username);
+   }
+   if(CommentsMeta.find ({'userId': Meteor.userId()}).count()==0){
+   		console.log(Session.get("nameForInserts"));
+
+   		CommentsMeta.insert({
+   			userId: Meteor.userId(),
+   			userName: Session.get("nameForInserts"),
+   			picture: Session.get("imageForInserts"),
+   			idString: Session.get("idString"),
+   			groupName: Session.get("groupName"),
+   			totalComments: 0, 
+   			totalLikes: 0, 
+   		}, function(err, theId){
+			//console.log(theId);
+			//console.log("here");
+			
+			Session.set("CommentsMetaId", theId);
+
+		}
+	);
+
+   } else {
+   		var thePointer = CommentsMeta.findOne({'userId': Meteor.userId()});
+		Session.set("CommentsMetaId", thePointer._id);
+   }
+
+		
+}
+
+
+//******* For Opening Modal *****************
+Template.openingmodal.atotalCommentors = function(){
+	var totalCommentors = CommentsMeta.find({totalComments: {$gt: 0}}).count();
+	if ( totalCommentors == 1){
+		return "One person has contributed to the to this episode.";
+	} else if(totalCommentors ==0) {
+		return "You will be the first to contribute to this episode.";
+	} else {
+		return totalCommentors  + " People contributed to this episode.";
+	}
+}
+
+Template.openingmodal.commentorsList = function() {
+	return CommentsMeta.find({totalComments: {$gt: 0}});
+}
+Template.openingmodal.totalCommentorsMessage = function(){
+	var counter = CommentsMeta.find({totalComments: {$gt: 0}}).count();
+	if (counter == 0 ){
+		return "There are no previous commentors.";
+	} else if (counter == 1){
+		return "There is one previous commentor.";
+	} else {
+		return "There are " + counter + " previous commentors."; 
+	}
+}
+Template.openingmodal.auserName = function() {
+	return this.userName;
+}
+Template.openingmodal.atotalComments = function() {
+	return this.totalComments;
+}
+Template.openingmodal.rendered = function(){
+	
+	if(Session.equals("modalShown", 0)){
+		Session.set("modalShown", 1);
+		$('#episode_contribute_modal').modal('show');
+		console.log("here just once");
+	}
+}
+
+/*
+function playPause(){
+	var startTime = new Date;
+	if (Session.equals("playPause", "glyphicon-play")){
+		Session.set("playPause", "glyphicon-pause");
+		myTimer=Meteor.setInterval ( function() {
+			startTime = new Date().getTime();
+			var runTime = Session.get('sessionRunTime')+1; 
+			Session.set('sessionRunTime', runTime);
+			$('#timer').slider("value", runTime);
+			console.log( new Date().getTime() - startTime);
+
+		}, 1000 - (new Date().getTime()-startTime)/1000 );
+
+
+
+	} else if (Session.equals("playPause", "glyphicon-pause")){			
+		Session.set("playPause", "glyphicon-play");
+		Meteor.clearInterval(myTimer);	
+
+	}
+}*/
+
+function playPause(){
+	if (Session.equals("playPause", "glyphicon-play")){
+		Session.set("playPause", "glyphicon-pause");
+		startTimer();
+	} else if (Session.equals("playPause", "glyphicon-pause")){			
+		Session.set("playPause", "glyphicon-play");
+		// figure out a way to pause here
+		pauseTimer("set", true);
+	}
+}
+var displayedRunTime = 0;
+var atTimerStart = 0;
+var pauseFlag = false;
+var timeDifference = 0;
+function startTimer(){
+	//Lots to do to build this.
+	//idea is every time play button is started, start a detailed timer at 0, 
+	//synched to getTime. 
+	//check every 50 ms if a full second has elapased (the difference between to getTimes
+	// if a new second call the reactive elements) 
+	//pauseTimer("set", false);
+	var currentTime = Date.now();
+	 if (atTimerStart == 0){
+	 	atTimerStart  = Date.now();	 	
+	 } else if (atTimerStart == -1 ){
+	 	atTimerStart = Date.now() - timeDifference;
+	 } else if (Session.equals("runTimeFromSlider", 1)) {
+		//console.log( "I am" + Session.get("sessionRunTime"));
+		atTimerStart = Date.now() - Session.get("sessionRunTime") * 1000;
+		Session.set("runTimeFromSlider", 0);
+	 }
+	 timeDifference = currentTime - atTimerStart;
+	 if (displayedRunTime !== Math.floor( timeDifference/1000)) {	
+		displayedRunTime = Math.floor( timeDifference/1000 );
+		Session.set("sessionRunTime", displayedRunTime);
+		$('#timer').slider("value", displayedRunTime);
+	}
+	if(pauseTimer("get")){
+		pauseTimer("set", false);
+		atTimerStart = -1;
+		return false;
+	} else {
+		Meteor.setTimeout(startTimer, 50);
+	}
+}
+function pauseTimer(setOrGet, yesOrNo){
+	if (setOrGet=="set"){
+		pauseFlag = yesOrNo;
+		return;
+	} else{
+		return pauseFlag;
+	}
+}
+
+function inMinutesSeconds(seconds){
+	var timeInSeconds=seconds;
+	var hours = Math.floor(timeInSeconds / 3600);
+	timeInSeconds -= hours * 3600;
+	var minutes = Math.floor(timeInSeconds / 60);
+	timeInSeconds -= minutes * 60;
+	var seconds = parseInt(timeInSeconds % 60, 10);
+	counterFormat = (minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds);
+	return(counterFormat);			
+}

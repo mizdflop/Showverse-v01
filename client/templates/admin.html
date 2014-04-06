@@ -1,0 +1,29 @@
+<template name="admin">
+<h1>Add a Series</h1>
+{{> insertSeriesForm}}
+
+<h1>Add an Episode</h1>
+{{> fksToSeries}}
+{{> insertEpisodeForm}}
+
+<h1>Add a Group</h1>
+{{> insertGroupForm}}
+</template>
+
+<template name="insertSeriesForm">
+  {{> quickForm collection="Series" id="insertSeriesForm" type="insert"}}
+</template>
+
+<template name="insertEpisodeForm">
+  {{> quickForm collection="Episodes" id="insertEpisodeForm" type="insert"}}
+</template>
+
+<template name="insertGroupForm">
+  {{> quickForm collection="Groups" id="insertGroupForm" type="insert"}}
+</template>
+
+<template name="fksToSeries">
+  {{#each seriesInDb}}
+    {{seriesTitle}}  {{seriesId}}
+  {{/each}}
+</template>

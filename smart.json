@@ -1,0 +1,10 @@
+{
+  "packages": {
+    "collection-helpers": {},
+    "iron-router": {},
+    "googleAnalytics": {},
+    "autoform": {},
+    "single-page-login": {},
+    "cloudinary": {}
+  }
+}

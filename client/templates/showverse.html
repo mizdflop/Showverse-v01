@@ -1,0 +1,207 @@
+<template name="showverse">
+		
+		<div class="title_area"><!--START TITLE AREA-->
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="title"><!--EPISODE TITLE-->
+							{{#with episodeInfo}}
+							<h3>{{seriesTitle}}/{{seasonNumber}}.{{episodeNumber}}: {{episodeTitle}}</h3>
+							<p><strong>Aired on:</strong>  &bullet; <strong>Network:</strong> {{network}} &bullet; <strong>IMDB user rating: {{imdbRating}} </strong>/ 10 stars.</p>
+							{{/with}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--END TITLE AREA-->
+		<div class="main_content_area"><!--START MAINCONTENT AREA-->
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+						<div class="content_left"><!--START LEFT CONTENT AREA-->
+
+							<div class="comment_input_box"><!--START COMMENT BOX AREA-->
+								<div class="user_photo">
+									<img src="{{userPhoto}}" alt="USER">
+								</div>
+								<div class="comment_box">
+									<textarea id="inputbox" class="form-control" placeholder="Write a comment..." rows="3"></textarea>
+								</div>
+							</div><!--END COMMENT BOX AREA-->
+							<div style="clear:both;"></div>
+							
+							<div class="comment_control_box"><!--START COMMENT CONTROL BOX-->
+	
+								<div class="select_menu"><!--SELECT MENU-->
+									<select id="thispicker" class="form-control show-tick">
+										<option value="1">All comments</option>
+										<option value="2">Only comments with Likes</option>
+									</select>
+								</div>
+								<div class="clearfix visible-xs"></div>
+								<div class="comment_right_action">
+									<i class="glyphicon glyphicon-user"></i> {{totalCommentors}} <a href="#" id="modalshow" data-toggle="modal" data-target=".all_user_list_modal">(show/hide users)</a> &nbsp; | &nbsp; <i class="glyphicon glyphicon-comment"></i> {{totalComments}} comments
+								</div>
+							</div><!--END COMMENT CONTROL BOX-->
+							
+							<div style="clear:both;"></div>
+								<div class="comment_list"><!--START COMMENT LIST-->
+									<ul>
+
+									{{#each theComments}}
+
+										<li class="{{isSpecial}}"><!--SINGLE COMMENT-->
+											<div class="user_photo">
+												<img src="{{picture}}" alt="USER">
+											</div>
+											<div class="user_comment">
+												<h4>{{commentorName}} <span class="user_time">&bullet; {{commentRunTime}}</span></h4>
+												<p>{{commentText}}</p>
+												<p><a href="#" class="like_number" id="{{_id}}"><i class="glyphicon glyphicon-heart"></i> {{total_likes}} </a> &bullet; <a href="#" class="like_button" id="like-{{_id}}">{{likeunliketext}}</a>  {{#if ismine}}<a href="#" class="delete_post"> &bullet; <i class="glyphicon glyphicon-remove"></i> Delete</a>{{/if}}</p>
+											</div>
+										</li>
+									{{/each}}
+									</ul>
+								</div>
+
+						</div><!--END LEFT CONTENT AREA-->
+					</div>
+ 
+ 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+						<div class="content_right"><!--START RIGHT CONTENT-->
+								<div class="timer_box"><!--START TIMER BOX AREA-->
+									<h4>Episode Timer</h4>
+									<div id="timer"></div><!--TIMER-->
+									<div class="row">
+										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+											<div class="timer_button">
+												<i id="playPause" class="glyphicon {{icontype}}"></i>
+											</div>
+										</div>
+										<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+											<div class="timer_count">
+												<span class="current_time">{{runtime}}</span> / <span class="full_time">59:00</span>											
+
+											</div>
+										</div>
+									</div>
+									<div class="timer_separator"></div>
+									<div class="timer_notice"><!--TIMER NOTICE-->
+										<p><span>Pause:</span> Press pause here and on your viewing screen to keep the commentary in sync.</p>
+									</div>
+								</div><!--END TIMER BOX AREA-->	
+								{{> leaderboard}}
+						</div><!--END RIGHT CONTENT-->
+					</div>
+				</div>
+			</div>
+		</div><!--END MAINCONTENT AREA-->
+		<!--SHOW/HIDE USER MODAL-->
+			{{>modal}}
+			
+			{{>openingmodal}}
+
+
+
+</template>
+
+
+
+
+
+
+<template name="leaderboard">
+							<div class="tab_area"><!--START TAB AREA-->
+								<ul class="btn-group btn-group-justified"><!--START TAB TRIGGER AREA-->
+									<li class="btn-group active">
+										<a href="#tab_A" class="btn btn-tab" data-toggle="tab">Most Active</a>
+									</li>
+									<li class="btn-group">
+										<a href="#tab_B" class="btn btn-tab" data-toggle="tab">Most Liked</a>
+									</li>
+								</ul><!--END TAB TRIGGER-->
+								
+								<div class="tab-content"><!--START TAB CONTENT AREA-->
+									
+									<div class="tab-pane active" id="tab_A"><!--TAB B CONTENT-->
+										<div class="most_comment_area">
+											<h4 class="text-center">Most Comments</h4>
+											<div class="comment_user_list">
+												<table class="table comment_user_table">
+													<tbody>
+														{{#each mostComments}}
+														<tr>
+															<td class="photo"><img src="{{picture}}" alt="USER"></td>
+															<td class="name">{{userName}}</td>
+															<td class="comment">{{totalComments}}</td>
+														</tr>
+														{{/each}}
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="tab_B"><!--TAB B CONTENT-->
+										<div class="most_comment_area">
+											<h4 class="text-center">Most Likes</h4>
+											<div class="comment_user_list">
+												<table class="table comment_user_table">
+													<tbody>
+														{{#each mostLikes}}
+														<tr>
+															<td class="photo"><img src="{{picture}}" alt="USER"></td>
+															<td class="name">{{userName}}</td>
+															<td class="comment">{{totalLikes}}</td>
+														</tr>
+														{{/each}}													
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>									
+								</div><!--END TAB CONTENT AREA-->
+							</div><!--END TAB AREA-->
+
+</template>
+
+
+<template name="openingmodal">
+		<div class="modal fade" id="episode_contribute_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Welcome to the NatterCast Deadwood Rewatch</h4>
+					</div>
+					<div class="modal-body">
+						<div class="episode_title_box_contribute">
+							<p><i class="glyphicon glyphicon-eye-open"></i>&nbsp; Episode&nbsp; {{#with episodeInfo}}{{seasonNumber}}.{{episodeNumber}}: {{episodeTitle}}{{/with}}</p>
+						</div>
+
+						<div class="contribute_number">
+						<p>{{totalCommentorsMessage}}</p>
+						</div>
+						<div class="contribute_user_list">
+							<table class="table contribute_user_table">
+								<tbody>
+								{{#each commentorsList}}
+									<tr>
+										<td class="name">{{auserName}}</td>
+										<td class="comments">{{atotalComments}} comments</td>
+									</tr>
+								{{/each}}
+								</tbody>
+							</table>
+						</div>
+						<div class="contribute_notice">
+							<p>Start the timer when you first hear the opening theme music. Add your comments and see what others had to say at that exact moment in the episode.</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</template>

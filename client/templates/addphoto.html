@@ -1,0 +1,29 @@
+<template name="addphoto"> 
+  <div class="row">
+    <div class="col-sm-6 col-md-4 col-md-offset-4 outer">
+      <div class="account-wall">
+      <h1 class="title_text">Showverse Sync</h1>
+      <h4 class="subtitle_text">Time-shifted group conversation for time-shifted TV viewing.</h4>
+        <span id="single-page-login-alert" ></span>
+        <div class="text-center">     
+          <p><img src="/img/commentor.png" width="275"></p>
+          <h5>Please add a photo. Others group members <br>want to see your face!</h5> 
+ 
+          {{#cloudinary_upload callback="save_url"}}
+             <input type="file" id="#btn" style="margin-left: 80px; margin-top: 30px; ">  
+
+              {{#if c_upload_successful}}
+                <p>Success</p>
+              {{/if}}
+
+              {{#if c_upload_failed}}
+                <p>Failed</p>
+              {{/if}}
+
+          {{/cloudinary_upload}}
+        </div>
+      </div>
+    </div> 
+  </div>
+</template>
+

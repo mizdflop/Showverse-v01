@@ -1,0 +1,582 @@
+@media (max-width: 767px) {
+
+.comment_input_box .comment_box{
+	max-width: 100%;
+}
+
+.user_comment{
+	width:100%;
+	text-align:center;
+	margin-bottom:15px;
+}
+
+.user_photo{
+	margin-bottom: 5px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.comment_input_box .comment_box{
+	background: url("../img/arrow-top.png") no-repeat scroll center top / 30px 15px rgba(0, 0, 0, 0);
+	padding-top: 10px;
+}
+
+.select_menu{
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.select_menu .bootstrap-select{
+	margin-left:auto !important;
+	margin-right:auto !important;
+	display:block !important;
+}
+
+.comment_right_action{
+	text-align:center;
+	margin-top:10px;
+}
+
+.bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    width: 258px;
+}
+
+.bootstrap-select {
+    /*width: 220px\9; IE8 and below*/
+    width: 258px\0; /*IE9 and below*/
+}
+
+.comment_list{
+	margin-bottom:30px;
+}
+
+.user_table .check_box{
+	width:2%;
+}
+
+.user_table .photo{
+	width:20%;
+}
+
+.user_table .name{
+	width:48%;
+}
+
+.user_table .comment{
+	width:30%;
+}
+
+
+.bootstrap-select > .btn {
+    padding-right: 25px;
+}
+
+.bootstrap-select.btn-group .btn .caret {
+    right: 12px;
+}
+
+.single_history_bottom{
+	margin-left:15px;
+}
+
+.history_bottom{
+	margin-left: -15px;
+}
+
+.single_episode{
+	margin-bottom:15px;
+}
+
+.current_playing_box .episode_title a{
+	font-size:16px;
+}
+
+.login_box{
+	padding:20px 15px;
+}
+
+.login_box .title_text{
+	font-size:24px;
+}
+
+.comment_user_table .photo{
+	width:18%;
+}
+
+.comment_user_table .name{
+	width:57%;
+}
+
+.comment_user_table .comment{
+	width:25%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+.comment_input_box .comment_box{
+	max-width: 83%;
+}
+
+.user_comment{
+	width:83%;
+}
+
+.user_photo{
+	float: left;
+	margin-right:10px;
+}
+
+.comment_input_box .comment_box{
+	background: url("../img/arrow-left.png") no-repeat scroll 0 10px / 15px 30px rgba(0, 0, 0, 0);
+	padding-left: 10px;
+}
+
+.select_menu{
+	float:left;
+}
+
+.comment_right_action{
+	text-align:right;
+	margin-top:8px;
+}
+
+.comment_list{
+	max-height: 540px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    width: 130px;
+}
+
+.bootstrap-select {
+    /*width: 150px\9; IE8 and below*/
+    width: 150px\0; /*IE9 and below*/
+}
+
+.user_table .check_box{
+	width:2%;
+}
+
+.user_table .photo{
+	width:15%;
+}
+
+.user_table .name{
+	width:53%;
+}
+
+.user_table .comment{
+	width:30%;
+}
+
+.bootstrap-select > .btn {
+    padding-right: 15px;
+}
+
+.bootstrap-select.btn-group .btn .caret {
+    right: 8px;
+}
+
+.bootstrap-select.btn-group .btn .filter-option {
+	padding-left:10px;
+}
+
+.single_history_bottom{
+	margin-left:10px;
+}
+
+.history_bottom{
+	margin-left: -10px;
+}
+
+.single_episode{
+	min-height:180px;
+}
+
+.current_playing_box .episode_title a{
+	font-size:16px;
+}
+
+.login_box{
+	padding:20px 30px;
+}
+
+.login_box .title_text{
+	font-size:28px;
+}
+
+.comment_user_table .photo{
+	width:18%;
+}
+
+.comment_user_table .name{
+	width:57%;
+}
+
+.comment_user_table .comment{
+	width:25%;
+}
+
+.contribute_user_table .name{
+	padding-left:20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 992px) and (max-width: 1199px) {
+
+
+.comment_input_box .comment_box{
+	max-width: 87.5%;
+}
+
+.user_comment{
+	width:87.5%;
+}
+
+.user_photo{
+	float: left;
+	margin-right:10px;
+}
+
+.comment_input_box .comment_box{
+	background: url("../img/arrow-left.png") no-repeat scroll 0 10px / 15px 30px rgba(0, 0, 0, 0);
+	padding-left: 10px;
+}
+
+.select_menu{
+	float:left;
+}
+
+.comment_right_action{
+	text-align:right;
+	margin-top:8px;
+}
+
+.comment_list{
+	max-height: 505px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    width: 258px;
+}
+
+.bootstrap-select {
+    /*width: 220px\9; IE8 and below*/
+    width: 258px\0; /*IE9 and below*/
+}
+
+.user_table .check_box{
+	width:2%;
+}
+
+.user_table .photo{
+	width:7%;
+}
+
+.user_table .name{
+	width:71%;
+}
+
+.user_table .comment{
+	width:20%;
+}
+
+.bootstrap-select > .btn {
+    padding-right: 25px;
+}
+
+.bootstrap-select.btn-group .btn .caret {
+    right: 12px;
+}
+
+.single_history_bottom{
+	margin-left:20px;
+}
+
+.history_bottom{
+	margin-left: -25px;
+}
+
+.single_episode{
+	min-height:175px;
+}
+
+.current_playing_box .episode_title a{
+	font-size:16px;
+}
+
+.login_box{
+	padding:20px;
+}
+
+.login_box .title_text{
+	font-size:28px;
+}
+
+.comment_user_table .photo{
+	width:18%;
+}
+
+.comment_user_table .name{
+	width:57%;
+}
+
+.comment_user_table .comment{
+	width:25%;
+}
+
+.contribute_user_table .name{
+	padding-left:20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 1200px) {
+
+.comment_input_box .comment_box{
+	max-width: 90%;
+}
+
+.user_comment{
+	width:90%;
+}
+
+.user_photo{
+	float: left;
+	margin-right:10px;
+}
+
+.comment_input_box .comment_box{
+	background: url("../img/arrow-left.png") no-repeat scroll 0 10px / 15px 30px rgba(0, 0, 0, 0);
+	padding-left: 10px;
+}
+
+.select_menu{
+	float:left;
+}
+
+.comment_right_action{
+	text-align:right;
+	margin-top:8px;
+}
+
+.comment_list{
+	max-height: 466px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    width: 258px;
+}
+
+.bootstrap-select {
+    /*width: 220px\9; IE8 and below*/
+    width: 258px\0; /*IE9 and below*/
+}
+
+.user_table .check_box{
+	width:2%;
+}
+
+.user_table .photo{
+	width:7%;
+}
+
+.user_table .name{
+	width:71%;
+}
+
+.user_table .comment{
+	width:20%;
+}
+
+.bootstrap-select > .btn {
+    padding-right: 25px;
+}
+
+.bootstrap-select.btn-group .btn .caret {
+    right: 12px;
+}
+
+.single_history_bottom{
+	margin-left:25px;
+}
+
+.history_bottom{
+	margin-left: -25px;
+}
+
+.single_episode{
+	min-height:200px;
+}
+
+.current_playing_box .episode_title a{
+	font-size:18px;
+}
+
+.login_box{
+	padding:20px 30px;
+}
+
+.login_box .title_text{
+	font-size:30px;
+}
+
+.comment_user_table .photo{
+	width:18%;
+}
+
+.comment_user_table .name{
+	width:57%;
+}
+
+.comment_user_table .comment{
+	width:25%;
+}
+
+.contribute_user_table .name{
+	padding-left:20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
