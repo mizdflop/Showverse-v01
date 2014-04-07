@@ -1,0 +1,16 @@
+<template name="admin_edit_series">
+<h1>Edit a Series</h1>
+<!-- clickable ist of series that update a Session Variable -->
+
+<!--Need to add forms for update and delette -->
+
+
+<h4>Click on a Series to populate the form</h4>
+{{#each editableSeries}}
+<p><a href="#" class="popForm">{{seriesTitle}}</a></p>
+{{/each}}
+
+  {{> quickForm collection="Series" doc=editingDoc id="admin_edit" type="update"}}
+
+</template>
+
