@@ -20,7 +20,7 @@ Template.showverse.theComments = function() {
 			{sort: 
 				{commentRunTime: -1, 
 				timestamp: -1}, 
-				limit: 30 
+				limit: 50 
 			}
 		);
 	} else if (Session.get("selectPicker")== 2){
@@ -34,7 +34,7 @@ Template.showverse.theComments = function() {
 			{sort: 
 				{commentRunTime: -1, 
 				timestamp: -1}, 
-				limit: 30 
+				limit: 50 
 			}
 		);
 	}
@@ -217,7 +217,7 @@ Template.showverse.rendered = function ()
    		Session.set("nameForInserts", Meteor.user().username);
    }
    if(CommentsMeta.find ({'userId': Meteor.userId()}).count()==0){
-   		console.log(Session.get("nameForInserts"));
+   		console.log("why am i here. line 220");
 
    		CommentsMeta.insert({
    			userId: Meteor.userId(),
