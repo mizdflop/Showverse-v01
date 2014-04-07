@@ -57,10 +57,11 @@ Meteor.startup(function () {
 });
 
 Meteor.publish('comments', function (idString, seriesTitle, groupName) {
+	console.log(idString);
   return Comments.find({idString: idString, seriesTitle: seriesTitle, groupName: groupName});
 });
 Meteor.publish('groups', function (groupName) {
-  return Comments.find({groupName: groupName});
+  return Groups.find({groupName: groupName});
 });
 Meteor.publish('series', function(seriesTitle) {
 	return Series.find({seriesTitle: seriesTitle});
