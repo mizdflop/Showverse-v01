@@ -1,0 +1,26 @@
+<template name="admin_edit">
+<h1>Edit a Series</h1>
+<!-- clickable ist of series that update a Session Variable -->
+
+{{> editSeriesForm}}
+<!--Need to add forms for update and delette -->
+<h1>Edit an Episode</h1>
+
+{{> editEpisodeForm}}
+
+<h1>Edit a Group</h1>
+{{> editGroupForm}}
+</template>
+
+<template name="editSeriesForm">
+  {{> quickForm collection="Series" id="updateSeriesForm" type="update"}}
+</template>
+
+<template name="editEpisodeForm">
+  {{> quickForm collection="Episodes" id="updateEpisodeForm" type="update"}}
+</template>
+
+<template name="editGroupForm">
+  {{> quickForm collection="Groups" id="updateGroupForm" type="insert"}}
+</template>
+
