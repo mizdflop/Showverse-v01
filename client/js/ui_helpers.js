@@ -2,10 +2,14 @@ UI.registerHelper("getCommentors", function(){
 	return CommentsMeta.find({totalComments: {$gt: 0}});	
 });
 UI.registerHelper("getCommentors_userName", function(){
-	return this.userName;
+	var cursor = Meteor.users.findOne({_id: this.userId});
+	return cursor.username;
+
 });
 UI.registerHelper("getCommentors_picture", function(){
-	return this.picture;
+	var cursor = Meteor.users.findOne({_id: this.userId});
+	return cursor.profile[0].picture;
+
 });
 UI.registerHelper("getCommentors_totalComments", function(){
 	return this.totalComments;

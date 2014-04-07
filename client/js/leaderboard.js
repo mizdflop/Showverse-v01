@@ -3,22 +3,26 @@ Template.leaderboard.helpers({
 		return CommentsMeta.find({totalComments: {$gt: 0}}, {sort: {totalComments: -1} , limit: 10});
 	},
 	userName: function (){
-		return this.userName;
+		var cursor = Meteor.users.findOne({_id: this.userId});
+		return cursor.username;
 	},
 	picture: function(){
-		return this.picture;
+		var cursor = Meteor.users.findOne({_id: this.userId});
+		return cursor.profile[0].picture;
 	},
 	totalComments: function(){
 		return this.totalComments;
 	},
 	mostLikes: function() {
-		return CommentsMeta.find({totalComments: {$gt: 0}}, {sort: {totalLikes: -1} , limit: 10});
+		return CommentsMeta.find({totalLikes: {$gt: 0}}, {sort: {totalLikes: -1} , limit: 10});
 	},
 	userName: function (){
-		return this.userName;
+		var cursor = Meteor.users.findOne({_id: this.userId});
+		return cursor.username;
 	},
 	picture: function(){
-		return this.picture;
+		var cursor = Meteor.users.findOne({_id: this.userId});
+		return cursor.profile[0].picture;
 	},
 	totalLikes: function(){
 		return this.totalLikes;

@@ -60,7 +60,8 @@ Template.showverse.helpers({
 		}		
 	},
 	commentorName: function() {
-		return this.userName;
+		var cursor = Meteor.users.findOne({_id: this.userId});
+		return cursor.username;
 	},
 	commentText: function(){
   		return this.commentText;
@@ -73,7 +74,9 @@ Template.showverse.helpers({
 	},
 
 	picture: function() {
-		return this.picture;
+		var cursor = Meteor.users.findOne({_id: this.userId});
+		return cursor.profile[0].picture;
+
 	},
 	likeunliketext: function() {
 		if (Comments.find( {_id: this._id, likers: Meteor.userId()} ).count()) {
@@ -150,9 +153,9 @@ Template.showverse.events({
 					timestamp: timestamp,
 					commentText: commentText,
 					commentRunTime: Session.get ('sessionRunTime'),
-    	   			userName: Session.get("nameForInserts"),
-	       			picture: Session.get("imageForInserts"),
 					idString: Session.get("idString"),
+					seriesTitle: Session.get("seriesTitle"),
+					groupName: Session.get("groupName"),
 					likesCount:0,
 					likers:[]
 				}, function(err, theId){
@@ -176,26 +179,7 @@ Template.showverse.events({
 	'change #thispicker': function(e){
 		var theValue = parseInt( $('#thispicker :selected').val());
 		Session.set("selectPicker", theValue);
-			/*for(var i=1; i<201; i++){
-				Comments.insert({
-				userId: Meteor.userId(),
-				commentText: "this is a tool comment",
-				commentRunTime: i,
-	   			userName: Session.get("nameForInserts"),
-	   			picture: Session.get("imageForInserts"),
-				idString: Session.get("idString"),
-				likesCount:0,
-				likers:[]
-				}, function(err, theId){
-					//console.log(err);
-					//console.log(theId);
-
-				});
-			}*/		
-	},
-
-
-	
+	},	
 });
 Template.showverse.rendered = function ()
 {
@@ -237,8 +221,6 @@ Template.showverse.rendered = function ()
 
    		CommentsMeta.insert({
    			userId: Meteor.userId(),
-   			userName: Session.get("nameForInserts"),
-   			picture: Session.get("imageForInserts"),
    			idString: Session.get("idString"),
    			groupName: Session.get("groupName"),
    			totalComments: 0, 
@@ -246,7 +228,6 @@ Template.showverse.rendered = function ()
    		}, function(err, theId){
 			//console.log(theId);
 			//console.log("here");
-			
 			Session.set("CommentsMetaId", theId);
 
 		}
@@ -287,7 +268,8 @@ Template.openingmodal.totalCommentorsMessage = function(){
 	}
 }
 Template.openingmodal.auserName = function() {
-	return this.userName;
+	var cursor = Meteor.users.findOne({_id: this.userId});
+	return cursor.username;
 }
 Template.openingmodal.atotalComments = function() {
 	return this.totalComments;
