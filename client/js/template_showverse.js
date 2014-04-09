@@ -42,7 +42,8 @@ Template.showverse.theComments = function() {
 
 Template.showverse.helpers({ 
 	isSpecial: function(){
-		if(Session.equals("nameForInserts", "Show Notes")){
+		var cursor = Meteor.users.findOne({_id: this.userId});
+		if(cursor.username == "ShowNotes"){
 			return "special";
 		}
 	},
