@@ -665,7 +665,7 @@ LOGIN PAGE
 
 
 .btn:hover, .btn:focus{
-	color:#fff;
+	color:#FFF;
 }
 
 
@@ -778,4 +778,46 @@ LOGIN PAGE
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
 }
+
+
+
+
+
+
+
+
+
+
+
+/*
+	Series Page
+*/
+
+.bootstrap-select > .btn:hover, .bootstrap-select > .btn:focus{
+	color:#000;
+}
+
+.single_series{
+	margin-bottom:30px;
+}
+
+.single_series img{
+	border:1px solid rgba(0, 0, 0, .2);
+	margin-bottom:15px;
+}
+
+#series_selection li.discuss_btn{
+	
+}
+
+#series_selection li.discuss_btn .btn{
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+#series_selection select{
+	border: 1px solid #DDDDDD;
+	border-radius: 4px;
+	height: 34px;
+	padding: 6px 8px;
 }

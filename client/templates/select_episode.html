@@ -1,0 +1,44 @@
+<template name="select_episode">
+		<div class="title_area"><!--START TITLE AREA-->
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="title"><!--EPISODE TITLE-->
+							<h3>Pick a Show &amp; Episode</h3>
+							<p>We have {{numberSeries}} shows being discussed. Suggest a show using our feedback button on the right side of the pagel.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--END TITLE AREA-->
+		
+		<div class="main_content_area"><!--START MAINCONTENT AREA-->
+			<div class="container">
+				<div class="row">
+					{{#each allSeries}}
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><!--Single Series-->
+						<div class="single_series">
+							<img src="{{seriesImage}}" alt="{{seriesTitle}}">
+							<ul id="series_selection">
+								<li class="season_selector">
+									<select class="my_select">
+										<option value="">Select Episode</option>
+										{{#each allEpisodes}}
+										<option value="{{groupName}}:{{episodeId}}">Season {{seasonNumber}}, Ep. {{episodeNumber}}: {{episodeTitle}}</option>
+										{{/each}}
+									</select>
+								</li>
+								<li class="discuss_btn">
+									<button type="button" class="btn btn-primary">Discuss</button>
+								</li>
+							</ul>
+
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
+		</div><!--END MAINCONTENT AREA-->
+
+
+</template>

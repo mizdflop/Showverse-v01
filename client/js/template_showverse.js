@@ -55,6 +55,20 @@ Template.showverse.helpers({
 		result = Comments.find({}).count();
 		return result;		
 	},
+	likers: function(){
+		if (this.likers.length==0){
+			return false;
+		}
+		var nameStr="";
+		for(var i=0; i < this.likers.length; i++){
+			if(i > 0){
+				nameStr += ", ";
+			}
+			var cursor = Meteor.users.findOne({_id: this.likers[i]});
+			nameStr += cursor.username;
+		}
+		return nameStr;
+	},
 	ismine: function() {
 		if(this.userId==Meteor.userId()){
 			return true;
@@ -180,7 +194,13 @@ Template.showverse.events({
 	'change #thispicker': function(e){
 		var theValue = parseInt( $('#thispicker :selected').val());
 		Session.set("selectPicker", theValue);
-	},	
+	},
+	'mouseenter .like_number': function(e){
+		//console.log( e.target.id );
+		$( "#" + e.target.id ).tooltip({ 
+			position: { my: "top-55", at: "right center" } });
+	},
+
 });
 Template.showverse.rendered = function ()
 {
@@ -277,11 +297,11 @@ Template.openingmodal.atotalComments = function() {
 }
 Template.openingmodal.rendered = function(){
 	
-	if(Session.equals("modalShown", 0)){
-		Session.set("modalShown", 1);
+//	if(Session.equals("modalShown", 0)){
+//		Session.set("modalShown", 1);
 		$('#episode_contribute_modal').modal('show');
-		console.log("here just once");
-	}
+//		console.log("here just once");
+//	}
 }
 
 /*
