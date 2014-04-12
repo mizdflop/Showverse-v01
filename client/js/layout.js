@@ -16,4 +16,7 @@ Template.layout.logInOut = function() {
 	} else{
 		return "Login";
 	}
-}
+};
+Template.layout.myusername = function() {
+	return Meteor.user().username;
+};
