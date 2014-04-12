@@ -4,10 +4,9 @@ Template.layout.events({
 			Meteor.logout( function() {
 				Router.go("/");
 			});					
-		} else{
+		} else {
 			Router.go("/");
 		}
-
 	}
 });
 Template.layout.logInOut = function() {
