@@ -17,6 +17,3 @@ Template.layout.logInOut = function() {
 		return "Login";
 	}
 };
-Template.layout.myusername = function() {
-	return Meteor.user().username;
-};
