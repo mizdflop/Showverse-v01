@@ -21,7 +21,10 @@ Meteor.publish('admin_episodes', function() {
 }); 
 Meteor.publish('admin_series', function() {
     return Series.find();
-});     
+});  
+Meteor.publish('admin_comments', function() {
+    return Comments.find();
+});    
 Meteor.publish('commentsmeta', function(idString, groupName) {
     return CommentsMeta.find({idString: idString, groupName: groupName});
 }); 

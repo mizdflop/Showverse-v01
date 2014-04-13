@@ -1,6 +1,7 @@
 //default value of the season and episode should be the min possible values
 Session.set("currentSeriesNmber", 1);
 Session.set("episodeNumber", 1);
+console.log( Session.get("commentsAggregates"));
 
 Template.select_episode.helpers ({
 	//top of page
@@ -32,12 +33,17 @@ Template.select_episode.helpers ({
 	episodeTitle: function(){
 		return this.episodeTitle;
 	},
-	groupName: function(){
-	$('selectpicker').selectpicker();
-		return Session.get("groupName");
+	numberComments: function(){
+		var aggObj = Session.get("commentsAggregates");
+		for(var i=0; i<aggObj.length; i++){
+			if( aggObj[i]._id.idString == this.idString && aggObj[i]._id.seriesTitle == this.seriesTitle){
+				return aggObj[i].posts;
+			}
+		}
+		return "0";
 	}
-
 });
+
 
 Template.select_episode.events({
 	'click .discuss_btn': function(e){

@@ -5,6 +5,7 @@
     "googleAnalytics": {},
     "autoform": {},
     "single-page-login": {},
-    "cloudinary": {}
+    "cloudinary": {},
+    "mongodb-aggregation": {}
   }
 }

@@ -17,3 +17,4 @@ accounts-base
 accounts-password
 single-page-login
 cloudinary
+mongodb-aggregation

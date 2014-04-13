@@ -56,37 +56,7 @@ Meteor.startup(function () {
 	}	
 });
 
-Meteor.publish('comments', function (idString, seriesTitle, groupName) {
-	console.log(idString);
-  return Comments.find({idString: idString, seriesTitle: seriesTitle, groupName: groupName});
-});
-Meteor.publish('groups', function (groupName) {
-  return Groups.find({groupName: groupName});
-});
-Meteor.publish('series', function(seriesTitle) {
-	return Series.find({seriesTitle: seriesTitle});
-});	
-Meteor.publish('episodes_for_list', function(seriesTitle) {
-	console.log(seriesTitle);
-	return Episodes.find({seriesTitle: seriesTitle});
-});	
-Meteor.publish('episodes', function(seriesTitle, idString) {
-	console.log(idString);
-	return Episodes.find({idString: idString, seriesTitle: seriesTitle});
-});	
-Meteor.publish('admin_episodes', function() {
-	return Episodes.find();
-});	
-Meteor.publish('admin_series', function() {
-	return Series.find();
-});		
-Meteor.publish('commentsmeta', function(idString, groupName) {
-	return CommentsMeta.find({idString: idString, groupName: groupName});
-});	
-Meteor.publish('commentedUsers', function(){
-	console.log("this is me here.");
-	return Meteor.users.find({});
-});
+
 Accounts.onCreateUser(function(options, user) {
     if (options.profile) {
         options.profile.picture = "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?type=small";
