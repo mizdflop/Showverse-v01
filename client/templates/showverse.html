@@ -56,7 +56,7 @@
 											</div>
 											<div class="user_comment">
 												<h4>{{commentorName}} <span class="user_time">&bullet; {{commentRunTime}}</span></h4>
-												<p>{{commentText}}</p>
+												<p>{{#markdown}}{{commentText}}{{/markdown}}</p>
 												<p><a href="#" title="{{likers}}" class="like_number" id="{{_id}}"><i class="glyphicon glyphicon-heart"></i> {{total_likes}} </a> &bullet; <a href="#" class="like_button" id="like-{{_id}}">{{likeunliketext}}</a>  {{#if ismine}}<a href="#" class="delete_post"> &bullet; <i class="glyphicon glyphicon-remove"></i> Delete</a>{{/if}}</p>
 											</div>
 										</li>
