@@ -207,7 +207,7 @@ textarea.form-control:focus{
 
 .user_comment p:last-child{
 	margin-bottom:0px;
-	color:#999;
+	/*color:#999;*/
 }
 
 .user_time{
