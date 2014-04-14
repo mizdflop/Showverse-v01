@@ -307,6 +307,11 @@ textarea.form-control:focus{
 	text-transform: uppercase;
 }
 
+.jumpto{
+	color: #CCCCCC;
+	font-weight: bold;
+}
+
 .history_area{
 	background-color: #F1F1F1;
 	border: 1px solid #CCCCCC;
@@ -794,7 +799,6 @@ LOGIN PAGE
 */
 
 .bootstrap-select > .btn:hover, .bootstrap-select > .btn:focus{
-	color:#000;
 }
 
 .single_series{
@@ -820,4 +824,17 @@ LOGIN PAGE
 	border-radius: 4px;
 	height: 34px;
 	padding: 6px 8px;
+}
+
+.btn-timer { 
+  color: #FFFFFF; 
+  background-color: #4E4E4E; 
+  border-color: #666666; 
+} 
+ 
+
+ 
+.btn-timer .badge { 
+  color: #4E4E4E; 
+  background-color: #FFFFFF; 
 }

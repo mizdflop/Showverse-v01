@@ -7,6 +7,7 @@ Session.set("sliderInitialized", 0)
 Session.set("timeOfPress",0);
 Session.set("modalShown", 0);
 dataArray = [];
+showMarkersArray = []
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 Template.showverse.theComments = function() {
 	//console.log(Session.get("unseenUsers"));
@@ -116,6 +117,20 @@ Template.showverse.helpers({
 	icontype: function() {
 		return Session.get("playPause");
 	},
+	showMarkers: function(){
+		var epHolder = Episodes.findOne();
+		return epHolder.showMarkers;
+	},
+	timestamp: function(){
+		showMarkersArray.push(this.timestamp);
+		return this.timestamp;
+	},
+	formatedTimeStamp: function(){
+		return this.showMarker;
+	},
+	showMarker: function(){
+		return inMinutesSeconds(this.timestamp);
+	}
 });
 
 Template.showverse.events({
@@ -200,11 +215,17 @@ Template.showverse.events({
 		$( "#" + e.target.id ).tooltip({ 
 			position: { my: "top-55", at: "right center" } });
 	},
+	'change .selectpicker_timer': function(e){
+			Session.set("sliding", 0);
+			Session.set("runTimeFromSlider",1);
+			//console.log(Session.get("runTimeFromSlider"));
+			Session.set("sessionRunTime", e.target.value);						
+	}
 
 });
 Template.showverse.rendered = function ()
 {
-	console.log("did i rerender");
+	$('.selectpicker_timer').selectpicker();
 	$( "#timer" ).slider({
 		range: "min",
 		value: Session.get("sessionRunTime"),
@@ -213,7 +234,7 @@ Template.showverse.rendered = function ()
 		stop: function( event, ui ) {
 			Session.set("sliding", 0);
 			Session.set("runTimeFromSlider",1);
-			console.log(Session.get("runTimeFromSlider"));
+			//console.log(Session.get("runTimeFromSlider"));
 			Session.set("sessionRunTime", ui.value);						
 		},
 		slide: function (event, ui) {
@@ -304,28 +325,7 @@ Template.openingmodal.rendered = function(){
 //	}
 }
 
-/*
-function playPause(){
-	var startTime = new Date;
-	if (Session.equals("playPause", "glyphicon-play")){
-		Session.set("playPause", "glyphicon-pause");
-		myTimer=Meteor.setInterval ( function() {
-			startTime = new Date().getTime();
-			var runTime = Session.get('sessionRunTime')+1; 
-			Session.set('sessionRunTime', runTime);
-			$('#timer').slider("value", runTime);
-			console.log( new Date().getTime() - startTime);
 
-		}, 1000 - (new Date().getTime()-startTime)/1000 );
-
-
-
-	} else if (Session.equals("playPause", "glyphicon-pause")){			
-		Session.set("playPause", "glyphicon-play");
-		Meteor.clearInterval(myTimer);	
-
-	}
-}*/
 
 function playPause(){
 	if (Session.equals("playPause", "glyphicon-play")){
@@ -363,6 +363,10 @@ function startTimer(){
 		displayedRunTime = Math.floor( timeDifference/1000 );
 		Session.set("sessionRunTime", displayedRunTime);
 		$('#timer').slider("value", displayedRunTime);
+		if(_.indexOf(showMarkersArray, displayedRunTime)!==-1){
+			$('.selectpicker_timer').selectpicker("val", displayedRunTime);
+			$('.selectpicker_timer').selectpicker('render');
+		}
 	}
 	if(pauseTimer("get")){
 		pauseTimer("set", false);

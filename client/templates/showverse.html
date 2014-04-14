@@ -86,9 +86,16 @@
 										</div>
 									</div>
 									<div class="timer_separator"></div>
-									<div class="timer_notice"><!--TIMER NOTICE-->
+										<p><span class="jumpto">Jump to:&nbsp;&nbsp;</span>
+										<select class="selectpicker_timer show-tick" data-style="btn-timer">
+									    	{{#each showMarkers}}
+									    	<option value="{{timestamp}}">{{formatedTimeStamp}} / {{showMarker}}</option>
+									    	{{/each}}
+									  	</select>
+									  </p>
+									<!--<div class="timer_notice">
 										<p><span>Pause:</span> Press pause here and on your viewing screen to keep the commentary in sync.</p>
-									</div>
+									</div -->
 								</div><!--END TIMER BOX AREA-->	
 								{{> leaderboard}}
 						</div><!--END RIGHT CONTENT-->
