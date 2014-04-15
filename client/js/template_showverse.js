@@ -223,8 +223,11 @@ Template.showverse.events({
 			position: { my: "top-55", at: "right center" } });
 	},
 	'change .selectpicker_timer': function(e){
-			Session.set("sessionRunTime", parseInt(e.target.value));
-			$('#timer').slider("value", e.target.value);
+		if(Session.get("setFromForm")==0){
+			return false;
+		}
+		Session.set("sessionRunTime", parseInt(e.target.value));
+		$('#timer').slider("value", e.target.value);
 	}
 
 });
@@ -391,6 +394,7 @@ function pauseTimer(setOrGet, yesOrNo){
 Deps.autorun(function() {	
 	var runtime = Session.get("sessionRunTime");
 	var markers = Session.get("showMarkers");
+	var currentMarker=0;
 	console.log('here');
 	for(var p in markers){
 		if(markers[p].timestamp<=runtime){
@@ -398,6 +402,11 @@ Deps.autorun(function() {
 			currentMarker = markers[p].timestamp;
 		}
 	}
+	Session.set("setFromForm", 0);
+	$('.selectpicker_timer').selectpicker("val", currentMarker);
+	$('.selectpicker_timer').selectpicker('render');
+	Session.set("setFromForm", 1);
+
 });
 
 
