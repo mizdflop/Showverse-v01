@@ -19,7 +19,7 @@ Template.select_episode.helpers ({
 		return this.seriesImage;
 	},
 	allEpisodes: function(){
-		return Episodes.find({seriesTitle: this.seriesTitle}, {$sort: {seasonNumber: -1, episodeNumber: -1}});
+		return Episodes.find({seriesTitle: this.seriesTitle}, {sort: {seasonNumber: 1, episodeNumber: 1 }});
 	},
 	seasonNumber: function(){
 		return this.seasonNumber;
@@ -33,8 +33,12 @@ Template.select_episode.helpers ({
 	episodeTitle: function(){
 		return this.episodeTitle;
 	},
+	groupName: function(){
+		return Session.get("groupName");
+	},
 	numberComments: function(){
 		var aggObj = Session.get("commentsAggregates");
+		if(aggObj==undefined){return "0";}
 		for(var i=0; i<aggObj.length; i++){
 			if( aggObj[i]._id.idString == this.idString && aggObj[i]._id.seriesTitle == this.seriesTitle){
 				return aggObj[i].posts;

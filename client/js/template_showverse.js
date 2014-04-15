@@ -1,7 +1,7 @@
 Session.set("playPause", "glyphicon-play");
 Session.set("unseenUsers", []);
 Session.set("selectPicker", 1);
-Session.set("sessionRunTime", 0);
+Session.setDefault("sessionRunTime", 0);
 Session.setDefault("isSliding", 0);
 Session.set("sliderInitialized", 0)
 Session.set("timeOfPress",0);
@@ -21,7 +21,7 @@ Template.showverse.theComments = function() {
 			{sort: 
 				{commentRunTime: -1, 
 				timestamp: -1}, 
-				limit: 50 
+				limit: 30 
 			}
 		);
 	} else if (Session.get("selectPicker")== 2){
@@ -35,7 +35,7 @@ Template.showverse.theComments = function() {
 			{sort: 
 				{commentRunTime: -1, 
 				timestamp: -1}, 
-				limit: 50 
+				limit: 30 
 			}
 		);
 	}
@@ -119,7 +119,7 @@ Template.showverse.helpers({
 	},
 	showMarkers: function(){
 		var epHolder = Episodes.findOne();
-		return epHolder.showMarkers;
+		return epHolder.showMarkers.sort(function(a,b){return a.timestamp-b.timestamp});
 	},
 	timestamp: function(){
 		showMarkersArray.push(this.timestamp);
@@ -130,6 +130,14 @@ Template.showverse.helpers({
 	},
 	showMarker: function(){
 		return inMinutesSeconds(this.timestamp);
+	}, 
+	showMarkersExist: function(){
+		var epHolder = Episodes.findOne();
+		if(epHolder.showMarkers==undefined || epHolder.showMarkers[0].timestamp==undefined){
+			return false;
+		} else {
+			return true;
+		}
 	}
 });
 
@@ -216,10 +224,15 @@ Template.showverse.events({
 			position: { my: "top-55", at: "right center" } });
 	},
 	'change .selectpicker_timer': function(e){
+			if(Session.equals("timerSetFromDropdown", 1)){
+				Session.set("timerSetFromDropdown",0);
+				return false;
+			}
 			Session.set("sliding", 0);
 			Session.set("runTimeFromSlider",1);
-			//console.log(Session.get("runTimeFromSlider"));
-			Session.set("sessionRunTime", e.target.value);						
+			console.log(e.target.value);
+			Session.set("sessionRunTime", parseInt(e.target.value));
+			$('#timer').slider("value", e.target.value);
 	}
 
 });
@@ -232,10 +245,12 @@ Template.showverse.rendered = function ()
 		min: 1,
 		max: 3600,
 		stop: function( event, ui ) {
+			var nearestSceneTimeStamp=0;
 			Session.set("sliding", 0);
 			Session.set("runTimeFromSlider",1);
 			//console.log(Session.get("runTimeFromSlider"));
-			Session.set("sessionRunTime", ui.value);						
+			Session.set("sessionRunTime", ui.value);
+			setApplicableScene();
 		},
 		slide: function (event, ui) {
 			Session.set("sliding", ui.value);				
@@ -321,6 +336,8 @@ Template.openingmodal.rendered = function(){
 //	if(Session.equals("modalShown", 0)){
 //		Session.set("modalShown", 1);
 		$('#episode_contribute_modal').modal('show');
+		$('.selectpicker_timer').selectpicker();
+
 //		console.log("here just once");
 //	}
 }
@@ -384,6 +401,24 @@ function pauseTimer(setOrGet, yesOrNo){
 		return pauseFlag;
 	}
 }
+
+function setApplicableScene(){
+	//console.log(showMarkersArray);
+	var currentApplicableScene=0;
+	var currentApplicableSceneSet=0;
+	for(var i=0; i<showMarkersArray.length; i++){
+		if(Session.get("sessionRunTime")<=parseInt(showMarkersArray[i]) &&currentApplicableSceneSet==0){
+			currentApplicableScene=showMarkersArray[i-1];	
+			currentApplicableSceneSet=1;		
+		}
+	}
+	if(currentApplicableSceneSet==0){currentApplicableScene=showMarkersArray[showMarkersArray.length-1]}
+	$('.selectpicker_timer').selectpicker("val", currentApplicableScene);
+	$('.selectpicker_timer').selectpicker('render');
+	Session.set("timerSetFromDropdown", 1);
+
+}
+
 
 function inMinutesSeconds(seconds){
 	var timeInSeconds=seconds;
