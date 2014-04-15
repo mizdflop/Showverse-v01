@@ -6,6 +6,7 @@ Session.setDefault("isSliding", 0);
 Session.set("sliderInitialized", 0)
 Session.set("timeOfPress",0);
 Session.set("modalShown", 0);
+Session.setDefault("showMarkers", Object);
 dataArray = [];
 showMarkersArray = []
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -119,26 +120,24 @@ Template.showverse.helpers({
 	},
 	showMarkers: function(){
 		var epHolder = Episodes.findOne();
-		return epHolder.showMarkers.sort(function(a,b){return a.timestamp-b.timestamp});
+		epHolder.showMarkers.sort(function(a,b){return a.timestamp-b.timestamp});
+		Session.set("showMarkers", epHolder.showMarkers);
+		return epHolder.showMarkers;
 	},
 	timestamp: function(){
-		showMarkersArray.push(this.timestamp);
 		return this.timestamp;
 	},
 	formatedTimeStamp: function(){
 		return this.showMarker;
 	},
+	isSelected: function(){
+		if(this.isSelected){
+			return this.isSelected;
+		}
+	},
 	showMarker: function(){
 		return inMinutesSeconds(this.timestamp);
 	}, 
-	showMarkersExist: function(){
-		var epHolder = Episodes.findOne();
-		if(epHolder.showMarkers==undefined || epHolder.showMarkers[0].timestamp==undefined){
-			return false;
-		} else {
-			return true;
-		}
-	}
 });
 
 Template.showverse.events({
@@ -224,13 +223,6 @@ Template.showverse.events({
 			position: { my: "top-55", at: "right center" } });
 	},
 	'change .selectpicker_timer': function(e){
-			if(Session.equals("timerSetFromDropdown", 1)){
-				Session.set("timerSetFromDropdown",0);
-				return false;
-			}
-			Session.set("sliding", 0);
-			Session.set("runTimeFromSlider",1);
-			console.log(e.target.value);
 			Session.set("sessionRunTime", parseInt(e.target.value));
 			$('#timer').slider("value", e.target.value);
 	}
@@ -250,7 +242,6 @@ Template.showverse.rendered = function ()
 			Session.set("runTimeFromSlider",1);
 			//console.log(Session.get("runTimeFromSlider"));
 			Session.set("sessionRunTime", ui.value);
-			setApplicableScene();
 		},
 		slide: function (event, ui) {
 			Session.set("sliding", ui.value);				
@@ -380,10 +371,6 @@ function startTimer(){
 		displayedRunTime = Math.floor( timeDifference/1000 );
 		Session.set("sessionRunTime", displayedRunTime);
 		$('#timer').slider("value", displayedRunTime);
-		if(_.indexOf(showMarkersArray, displayedRunTime)!==-1){
-			$('.selectpicker_timer').selectpicker("val", displayedRunTime);
-			$('.selectpicker_timer').selectpicker('render');
-		}
 	}
 	if(pauseTimer("get")){
 		pauseTimer("set", false);
@@ -401,23 +388,17 @@ function pauseTimer(setOrGet, yesOrNo){
 		return pauseFlag;
 	}
 }
-
-function setApplicableScene(){
-	//console.log(showMarkersArray);
-	var currentApplicableScene=0;
-	var currentApplicableSceneSet=0;
-	for(var i=0; i<showMarkersArray.length; i++){
-		if(Session.get("sessionRunTime")<=parseInt(showMarkersArray[i]) &&currentApplicableSceneSet==0){
-			currentApplicableScene=showMarkersArray[i-1];	
-			currentApplicableSceneSet=1;		
+Deps.autorun(function() {	
+	var runtime = Session.get("sessionRunTime");
+	var markers = Session.get("showMarkers");
+	console.log('here');
+	for(var p in markers){
+		if(markers[p].timestamp<=runtime){
+			//console.log( inMinutesSeconds(markers[p].timestamp ));
+			currentMarker = markers[p].timestamp;
 		}
 	}
-	if(currentApplicableSceneSet==0){currentApplicableScene=showMarkersArray[showMarkersArray.length-1]}
-	$('.selectpicker_timer').selectpicker("val", currentApplicableScene);
-	$('.selectpicker_timer').selectpicker('render');
-	Session.set("timerSetFromDropdown", 1);
-
-}
+});
 
 
 function inMinutesSeconds(seconds){
