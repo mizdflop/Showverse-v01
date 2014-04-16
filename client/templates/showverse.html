@@ -194,16 +194,16 @@
 						</div>
 
 						<div class="contribute_number">
-						<p>{{totalCommentorsMessage}}</p>
+						<p>{{totalCommentorsMessage}} People have contributed to this episode:</p>
 						</div>
 						<div class="contribute_user_list">
 							<table class="table contribute_user_table">
 								<tbody>
 								{{#each commentorsList}}
 									<tr>
-										<td class="name">{{auserName}}</td>
-										<td class="comments">{{atotalComments}} comments</td>
-									</tr>
+										<td class="photo"><img src="{{picture}}" alt="USER"></td>
+										<td class="name">{{auserName}} <span>{{atotalComments}} comments made on {{dateOfComments}}</span></td>
+									</tr>								
 								{{/each}}
 								</tbody>
 							</table>

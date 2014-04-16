@@ -11,6 +11,14 @@ dataArray = [];
 var k=0;
 showMarkersArray = []
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var weekday=new Array(7);
+weekday[0]="Sunday";
+weekday[1]="Monday";
+weekday[2]="Tuesday";
+weekday[3]="Wednesday";
+weekday[4]="Thursday";
+weekday[5]="Friday";
+weekday[6]="Saturday";
 Template.showverse.theComments = function() {
 	k=0;
 	//console.log(Session.get("unseenUsers"));
@@ -340,11 +348,11 @@ Template.openingmodal.commentorsList = function() {
 Template.openingmodal.totalCommentorsMessage = function(){
 	var counter = CommentsMeta.find({totalComments: {$gt: 0}}).count();
 	if (counter == 0 ){
-		return "There are no previous commentors.";
+		return "You will be the first contributor to this episode.";
 	} else if (counter == 1){
-		return "There is one previous commentor.";
+		return "One person has contributed to this episode.";
 	} else {
-		return "There are " + counter + " previous commentors."; 
+		return counter + "People have contributed to this episode"; 
 	}
 }
 Template.openingmodal.auserName = function() {
@@ -354,17 +362,23 @@ Template.openingmodal.auserName = function() {
 Template.openingmodal.atotalComments = function() {
 	return this.totalComments;
 }
-Template.openingmodal.rendered = function(){
-	
-//	if(Session.equals("modalShown", 0)){
-//		Session.set("modalShown", 1);
-		$('#episode_contribute_modal').modal('show');
-		$('.selectpicker_timer').selectpicker();
-
-//		console.log("here just once");
-//	}
+Template.openingmodal.picture = function() {
+	var cursor = Meteor.users.findOne({_id: this.userId});
+	return cursor.profile[0].picture;
+}
+Template.openingmodal.dateOfComments = function(){
+	var aComment = Comments.findOne({userId: this.userId});
+	var d = new Date();
+	d.setTime(+1397501380719);
+	return( weekday[d.getDay()] + ", " + months[d.getMonth()] +  " " + 
+			d.getDate() + " " + d.getFullYear());
+	//WORKING HERE
 }
 
+Template.openingmodal.rendered = function(){
+	$('#episode_contribute_modal').modal('show');
+	$('.selectpicker_timer').selectpicker();
+}
 
 
 function playPause(){
