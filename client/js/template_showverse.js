@@ -116,6 +116,10 @@ Template.showverse.helpers({
 			return "Like";
 		}		
 	},
+	hiddenUsers: function(){
+		var theUnseen = Session.get("unseenUsers");
+		return theUnseen.length;
+	},
 	runtime: function(){
 		if(Session.get("sliding")){
 			return inMinutesSeconds(Session.get("sliding"));
@@ -369,7 +373,7 @@ Template.openingmodal.picture = function() {
 Template.openingmodal.dateOfComments = function(){
 	var aComment = Comments.findOne({userId: this.userId});
 	var d = new Date();
-	d.setTime(+1397501380719);
+	d.setTime(aComment.timestamp);
 	return( weekday[d.getDay()] + ", " + months[d.getMonth()] +  " " + 
 			d.getDate() + " " + d.getFullYear());
 	//WORKING HERE

@@ -5,6 +5,8 @@ Meteor.publish('comments', function (idString, seriesTitle, groupName) {
         Comments.upsert(
         {
 
+            idString: idString,
+            seriesTitle: seriesTitle,
             commentRunTime: theMarkers[p].timestamp,
             marker: theMarkers[p].showMarker,
             type: "sceneMarker"
@@ -12,6 +14,8 @@ Meteor.publish('comments', function (idString, seriesTitle, groupName) {
         {
             $set: 
             {
+                idString: idString,
+                seriesTitle: seriesTitle,
                 type: "sceneMarker",
                 commentRunTime: theMarkers[p].timestamp,
                 marker: theMarkers[p].showMarker

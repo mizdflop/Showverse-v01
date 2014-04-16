@@ -1,7 +1,6 @@
 //default value of the season and episode should be the min possible values
 Session.set("currentSeriesNmber", 1);
 Session.set("episodeNumber", 1);
-console.log( Session.get("commentsAggregates"));
 
 Template.select_episode.helpers ({
 	//top of page
@@ -10,7 +9,7 @@ Template.select_episode.helpers ({
 	},
 	//for allSeries #each block 
 	allSeries: function(){
-		return Series.find({}, {$sort: {seriesTitle: -1}});
+		return Series.find({}, {sort: {seriesTitle: 1}});
 	},
 	seriesTitle: function(){
 		return this.seriesTitle;
