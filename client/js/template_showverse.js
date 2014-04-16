@@ -6,10 +6,8 @@ Session.setDefault("isSliding", 0);
 Session.set("sliderInitialized", 0)
 Session.set("timeOfPress",0);
 Session.set("modalShown", 0);
-Session.setDefault("showMarkers", Object);
 dataArray = [];
 var k=0;
-showMarkersArray = []
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var weekday=new Array(7);
 weekday[0]="Sunday";
@@ -144,7 +142,7 @@ Template.showverse.helpers({
 		return Session.get("playPause");
 	},
 	showMarkers: function(){
-		var epHolder = Episodes.findOne();
+		var epHolder = Episodes.findOne({idString: Session.get("idString"), seriesTitle: Session.get("seriesTitle")});
 		epHolder.showMarkers.sort(function(a,b){return a.timestamp-b.timestamp});
 		Session.set("showMarkers", epHolder.showMarkers);
 		return epHolder.showMarkers;
