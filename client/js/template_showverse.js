@@ -30,6 +30,7 @@ Template.showverse.theComments = function() {
 				userId: {$nin:  Session.get("unseenUsers") }, 
 			}, 
 			{sort: 
+
 				{commentRunTime: -1, 
 				timestamp: -1}, 
 				limit: 30 
@@ -37,11 +38,20 @@ Template.showverse.theComments = function() {
 		);
 	} else if (Session.get("selectPicker")== 2){
 	return Comments.find(
-			{
-				episodeId: Session.get("episodeId"), 
-				commentRunTime: {$lte: Session.get("sessionRunTime")},
-				userId: {$nin:  Session.get("unseenUsers") }, 
-				likesCount: {$gt: 0}
+			{ $or:
+           		[
+            		{
+						episodeId: Session.get("episodeId"), 
+						commentRunTime: {$lte: Session.get("sessionRunTime")},
+						userId: {$nin:  Session.get("unseenUsers") }, 
+						likesCount: {$gt: 0}
+					},
+					{
+						episodeId: Session.get("episodeId"), 
+						commentRunTime: {$lte: Session.get("sessionRunTime")},
+						type: "sceneMarker"						
+					}
+				]
 			}, 
 			{sort: 
 				{commentRunTime: -1, 
@@ -334,15 +344,15 @@ Template.showverse.rendered = function ()
 }
 
 
-//******* For Opening Modal *****************
+//*******  For Opening Modal *****************
 Template.openingmodal.atotalCommentors = function(){
 	var totalCommentors = CommentsMeta.find({totalComments: {$gt: 0}}).count();
 	if ( totalCommentors == 1){
-		return "One person has contributed to the to this episode.";
+		return "One person has contributed to the to this episode:";
 	} else if(totalCommentors ==0) {
 		return "You will be the first to contribute to this episode.";
 	} else {
-		return totalCommentors  + " People contributed to this episode.";
+		return totalCommentors  + " People contributed to this episode:";
 	}
 }
 

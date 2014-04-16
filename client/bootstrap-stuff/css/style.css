@@ -9,6 +9,14 @@ body{
 	margin-bottom:50px;
 }
 
+.glyphicon-user-slash:before {
+	background: url("../img/user-slash.png") no-repeat scroll center center / 15px 14px #FFFFFF;
+	content: "";
+	display: inline-block;
+	height: 15px;
+	width: 15px;
+}
+
 a{
 	color:#0084B4;
 }
@@ -681,6 +689,8 @@ LOGIN PAGE
 }
 
 .comment_user_table td{
+	padding-top:20px !important;
+	padding-bottom:20px !important;
 	vertical-align:middle !important;
 }
 

@@ -40,7 +40,7 @@
 								</div>
 								<div class="clearfix visible-xs"></div>
 								<div class="comment_right_action">
-									<i class="glyphicon glyphicon-user"></i> {{totalCommentors}} <img src="/img/exedman.png"> {{hiddenUsers}}<a href="#" id="modalshow" data-toggle="modal" data-target=".all_user_list_modal"> &nbsp;(Edit)</a> &nbsp; | &nbsp; <i class="glyphicon glyphicon-comment"></i> {{totalComments}} comments
+									<i class="glyphicon glyphicon-user"></i> {{totalCommentors}} &nbsp; <i class="glyphicon glyphicon-user-slash"></i> {{hiddenUsers}} <a href="#" data-toggle="modal" data-target=".all_user_list_modal">(Edit)</a> &nbsp; | &nbsp; <i class="glyphicon glyphicon-comment"></i> {{totalComments}} comments
 								</div>
 							</div><!--END COMMENT CONTROL BOX-->
 							
@@ -54,7 +54,7 @@
 
 										{{#if writeSceneMarker}}
 											<li class="sub_comment_notice">
-												<p>Start {{sceneMarker}}-{{sceneRuntime}}</p>
+												<p>Start {{sceneRuntime}} - {{sceneMarker}}</p>
 											</li>
 										{{else}}
 
@@ -140,7 +140,7 @@
 									
 									<div class="tab-pane active" id="tab_A"><!--TAB B CONTENT-->
 										<div class="most_comment_area">
-											<h4 class="text-center">Most Comments</h4>
+											<h4 class="text-left">Most Comments</h4>
 											<div class="comment_user_list">
 												<table class="table comment_user_table">
 													<tbody>
@@ -194,7 +194,7 @@
 						</div>
 
 						<div class="contribute_number">
-						<p>{{totalCommentorsMessage}} People have contributed to this episode:</p>
+						<p>{{totalCommentorsMessage}}</p>
 						</div>
 						<div class="contribute_user_list">
 							<table class="table contribute_user_table">
