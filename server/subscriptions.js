@@ -1,6 +1,37 @@
 Meteor.publish('comments', function (idString, seriesTitle, groupName) {
-    console.log(idString);
-  return Comments.find({idString: idString, seriesTitle: seriesTitle, groupName: groupName});
+  var episodeOfInterest =Episodes.findOne({idString: idString, seriesTitle: seriesTitle});  
+  var theMarkers = episodeOfInterest.showMarkers;
+    for(var p in theMarkers){
+        Comments.upsert(
+        {
+
+            commentRunTime: theMarkers[p].timestamp,
+            marker: theMarkers[p].showMarker,
+            type: "sceneMarker"
+        },
+        {
+            $set: 
+            {
+                type: "sceneMarker",
+                commentRunTime: theMarkers[p].timestamp,
+                marker: theMarkers[p].showMarker
+            }
+        });
+    }    
+  return Comments.find(
+        { $or:
+           [
+            {
+                idString: idString, 
+                seriesTitle: seriesTitle, 
+                groupName: groupName
+            },
+            {
+                type: "sceneMarker"
+            }
+          ]  
+        }
+    );
 });
 Meteor.publish('groups', function (groupName) {
   return Groups.find({groupName: groupName});
@@ -12,8 +43,7 @@ Meteor.publish('episodes_for_list', function(seriesTitle) {
     console.log(seriesTitle);
     return Episodes.find({seriesTitle: seriesTitle});
 }); 
-Meteor.publish('episodes', function(seriesTitle, idString) {
-    console.log(idString);
+Meteor.publish('episodes', function(seriesTitle, idString) {   
     return Episodes.find({idString: idString, seriesTitle: seriesTitle});
 }); 
 Meteor.publish('admin_episodes', function() {

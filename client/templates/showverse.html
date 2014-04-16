@@ -47,8 +47,17 @@
 							<div style="clear:both;"></div>
 								<div class="comment_list"><!--START COMMENT LIST-->
 									<ul>
-
+									<li class="sub_comment_notice">
+										<p>Most Recent: {{currentSceneMarker}}</p>
+									</li>
 									{{#each theComments}}
+
+										{{#if writeSceneMarker}}
+											<li class="sub_comment_notice">
+												<p>Start {{sceneMarker}}-{{sceneRuntime}}</p>
+											</li>
+										{{else}}
+
 
 										<li class="{{isSpecial}}"><!--SINGLE COMMENT-->
 											<div class="user_photo">
@@ -60,6 +69,8 @@
 												<p><a href="#" title="{{likers}}" class="like_number" id="{{_id}}"><i class="glyphicon glyphicon-heart"></i> {{total_likes}} </a> &bullet; <a href="#" class="like_button" id="like-{{_id}}">{{likeunliketext}}</a>  {{#if ismine}}<a href="#" class="delete_post"> &bullet; <i class="glyphicon glyphicon-remove"></i> Delete</a>{{/if}}</p>
 											</div>
 										</li>
+									{{/if}}
+
 									{{/each}}
 									</ul>
 								</div>

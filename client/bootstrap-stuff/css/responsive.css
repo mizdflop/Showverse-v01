@@ -111,6 +111,14 @@
 	width:25%;
 }
 
+.contribute_user_table .photo{
+	width:20%;
+}
+
+.contribute_user_table .name{
+	width:80%;
+}
+
 .single_series {
 	border-bottom: 1px solid #CCCCCC;
 	padding-bottom: 30px;
@@ -269,8 +277,12 @@
 	width:25%;
 }
 
+.contribute_user_table .photo{
+	width:10%;
+}
+
 .contribute_user_table .name{
-	padding-left:20px;
+	width:90%;
 }
 
 #series_selection{
@@ -438,8 +450,12 @@
 	width:25%;
 }
 
+.contribute_user_table .photo{
+	width:10%;
+}
+
 .contribute_user_table .name{
-	padding-left:20px;
+	width:90%;
 }
 
 #series_selection{
@@ -591,8 +607,12 @@
 	width:25%;
 }
 
+.contribute_user_table .photo{
+	width:10%;
+}
+
 .contribute_user_table .name{
-	padding-left:20px;
+	width:90%;
 }
 
 #series_selection{

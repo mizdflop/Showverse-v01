@@ -8,9 +8,11 @@ Session.set("timeOfPress",0);
 Session.set("modalShown", 0);
 Session.setDefault("showMarkers", Object);
 dataArray = [];
+var k=0;
 showMarkersArray = []
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 Template.showverse.theComments = function() {
+	k=0;
 	//console.log(Session.get("unseenUsers"));
 	if (Session.get("selectPicker")== 1){
 		return Comments.find(
@@ -54,7 +56,7 @@ Template.showverse.helpers({
 	},
 
 	totalComments: function() {
-		result = Comments.find({}).count();
+		result = Comments.find({userId: {$exists: true}}).count();
 		return result;		
 	},
 	likers: function(){
@@ -80,6 +82,7 @@ Template.showverse.helpers({
 		var cursor = Meteor.users.findOne({_id: this.userId});
 		return cursor.username;
 	},
+
 	commentText: function(){
   		return this.commentText;
 	},
@@ -137,7 +140,23 @@ Template.showverse.helpers({
 	},
 	showMarker: function(){
 		return inMinutesSeconds(this.timestamp);
-	}, 
+	},
+	writeSceneMarker: function(){
+		if(this.type=="sceneMarker"){
+			//Session.set("currentSceneMarker", this.marker)
+			return true;
+		}
+	},
+	sceneRuntime: function(){
+		return inMinutesSeconds(this.commentRunTime);
+	},
+	sceneMarker: function(){
+		return this.marker;
+	},
+	currentSceneMarker: function(){
+		return Session.get("currentSceneMarker");
+	}
+
 });
 
 Template.showverse.events({
@@ -170,7 +189,6 @@ Template.showverse.events({
 		}
 	},
 	'click .delete_post': function() {
-		//console.log('I ame here');
 		Comments.remove({_id: this._id});
 		CommentsMeta.update({_id: Session.get("CommentsMetaId")}, {'$inc': {totalComments: -1}});
 
@@ -226,7 +244,9 @@ Template.showverse.events({
 		if(Session.get("setFromForm")==0){
 			return false;
 		}
+		console.log(parseInt(e.target.value));
 		Session.set("sessionRunTime", parseInt(e.target.value));
+		Session.set("runTimeFromSlider", 1)
 		$('#timer').slider("value", e.target.value);
 	}
 
@@ -288,7 +308,16 @@ Template.showverse.rendered = function ()
    		var thePointer = CommentsMeta.findOne({'userId': Meteor.userId()});
 		Session.set("CommentsMetaId", thePointer._id);
    }
+   //load show notes into comments Collection
+   var epHolder = Episodes.find().fetch();
+   //Commets.remove
+   var markersObj = epHolder.markers
+	for(var p in markersObj){
+		Comments.insert(
 
+
+		);
+	}
 		
 }
 
@@ -395,11 +424,11 @@ Deps.autorun(function() {
 	var runtime = Session.get("sessionRunTime");
 	var markers = Session.get("showMarkers");
 	var currentMarker=0;
-	console.log('here');
 	for(var p in markers){
 		if(markers[p].timestamp<=runtime){
 			//console.log( inMinutesSeconds(markers[p].timestamp ));
 			currentMarker = markers[p].timestamp;
+			Session.set("currentSceneMarker", markers[p].showMarker);
 		}
 	}
 	Session.set("setFromForm", 0);
@@ -408,6 +437,7 @@ Deps.autorun(function() {
 	Session.set("setFromForm", 1);
 
 });
+
 
 
 function inMinutesSeconds(seconds){

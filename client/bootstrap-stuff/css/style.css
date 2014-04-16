@@ -186,11 +186,31 @@ textarea.form-control:focus{
 	background-color:#FEFCE3;
 }
 
+.comment_list ul li.sub_comment_notice{
+	background-color:#666666;
+	text-align:center;
+	padding-top:2px;
+	padding-bottom:2px;
+}
+
+.comment_list ul li.sub_comment_notice p{
+	margin-bottom:0px;
+	color:#fff;
+}
+
 .comment_list ul li:after {
 	clear: both;
 	content: "";
 	display: table;
 }
+
+
+
+
+
+
+
+
 
 .user_comment{
 	float:left;
@@ -736,6 +756,8 @@ LOGIN PAGE
 	-webkit-border-radius: 5px;
 	padding: 10px 20px;
 	font-size:16px;
+	margin-right:-20px;
+	margin-left:-20px;
 }
 
 .contribute_notice p:last-child{
@@ -753,18 +775,15 @@ LOGIN PAGE
 .contribute_user_table{
 	
 }
-
 .contribute_user_table td{
 	vertical-align:middle !important;
 }
 
-.contribute_user_table .name{
-	width:75%;
+.contribute_user_table .name span{
+	display:block;
+	color:#707070;
 }
 
-.contribute_user_table .comments{
-	width:25%;
-}
 .delete_post{
 	color: black;
 	opacity: .35;
