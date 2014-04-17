@@ -199,12 +199,12 @@ textarea.form-control:focus{
 	text-align:center;
 	padding-top:2px;
 	padding-bottom:2px;
-	font-size: 13px
+	font-size: 13px;
 }
 
 .comment_list ul li.sub_comment_notice p{
 	margin-bottom:0px;
-	color:#fff;
+	color:#e6e6e6;
 }
 .comment_list ul li.sub_comment_aggregate{
 	background-color:#f6f6f6;
@@ -883,6 +883,6 @@ LOGIN PAGE
 
 .caret.caret-reversed {
     border-top-width: 0;
-    border-bottom: 4px solid #FFF;
-    color: #FFF;
+    border-bottom: 4px solid #b3b3b3;
+    color: #b3b3b3;
 }
