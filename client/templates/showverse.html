@@ -47,14 +47,15 @@
 							<div style="clear:both;"></div>
 								<div class="comment_list"><!--START COMMENT LIST-->
 									<ul>
-									<li class="sub_comment_notice">
-										<p>Most Recent: {{currentSceneMarker}}</p>
-									</li>
+									
 									{{#each theComments}}
 
 										{{#if writeSceneMarker}}
+											<li class="sub_comment_aggregate">
+												<p>There are {{commentsInScene}} comments to come in this scene.</p>
+											</li>
 											<li class="sub_comment_notice">
-												<p>Start {{sceneRuntime}} - {{sceneMarker}}</p>
+												<p>{{sceneRuntime}} - {{sceneMarker}}</p>
 											</li>
 										{{else}}
 
@@ -95,15 +96,18 @@
 
 											</div>
 										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+											<div class="timer_separator"></div>
+
+											<p><span class="jumpto">Sync points:&nbsp;&nbsp;</span>
+											<select class="selectpicker_timer show-tick" data-style="btn-timer" data-width="100%">
+										    	{{#each showMarkers}}
+										    	<option value="{{timestamp}}" {{isSelected}}>{{showMarker}} / {{formatedTimeStamp}}</option>
+										    	{{/each}}
+										  	</select>
+										  	</p>
+										 </div>
 									</div>
-									<div class="timer_separator"></div>
-										<p><span class="jumpto">Jump to:&nbsp;&nbsp;</span>
-										<select class="selectpicker_timer show-tick" data-style="btn-timer">
-									    	{{#each showMarkers}}
-									    	<option value="{{timestamp}}" {{isSelected}}>{{formatedTimeStamp}} / {{showMarker}}</option>
-									    	{{/each}}
-									  	</select>
-									  </p>
 								</div><!--END TIMER BOX AREA-->	
 								{{> leaderboard}}
 						</div><!--END RIGHT CONTENT-->

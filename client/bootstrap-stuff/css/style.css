@@ -205,6 +205,20 @@ textarea.form-control:focus{
 	margin-bottom:0px;
 	color:#fff;
 }
+.comment_list ul li.sub_comment_aggregate{
+	background-color:#f6f6f6;
+	text-align:left;
+	padding-top:2px;
+	padding-bottom:2px;
+	min-height: 35px;
+}
+
+.comment_list ul li.sub_comment_aggregate p{
+	margin-left: 72px;
+	margin-bottom:0px;
+	margin-top: 5px;
+	color:#b9b9b9;
+}
 
 .comment_list ul li:after {
 	clear: both;

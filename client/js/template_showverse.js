@@ -23,7 +23,8 @@ Template.showverse.theComments = function() {
 	if (Session.get("selectPicker")== 1){
 		return Comments.find(
 			{
-				episodeId: Session.get("episodeId"), 
+				idString: Session.get("idString"), 
+				seriesTitle: Session.get("seriesTitle"),
 				commentRunTime: {$lte: Session.get("sessionRunTime")},
 				userId: {$nin:  Session.get("unseenUsers") }, 
 			}, 
@@ -39,13 +40,15 @@ Template.showverse.theComments = function() {
 			{ $or:
            		[
             		{
-						episodeId: Session.get("episodeId"), 
+						idString: Session.get("idString"), 
+						seriesTitle: Session.get("seriesTitle"),
 						commentRunTime: {$lte: Session.get("sessionRunTime")},
 						userId: {$nin:  Session.get("unseenUsers") }, 
 						likesCount: {$gt: 0}
 					},
 					{
-						episodeId: Session.get("episodeId"), 
+						idString: Session.get("idString"), 
+						seriesTitle: Session.get("seriesTitle"),
 						commentRunTime: {$lte: Session.get("sessionRunTime")},
 						type: "sceneMarker"						
 					}
@@ -167,6 +170,42 @@ Template.showverse.helpers({
 			return true;
 		}
 	},
+	commentsInScene: function(){
+		var nextMarker = Comments.findOne(
+							{
+								type: "sceneMarker",
+								seriesTitle: Session.get("seriesTitle"),
+								idString: Session.get("idString"),
+								commentRunTime: {$gt: this.commentRunTime}
+							},
+							{sort: 
+								{commentRunTime: 1}, 
+
+							}
+						);
+		if(nextMarker==undefined){
+			var commentsInScene = Comments.find(
+								{
+									type: {$exists: false},
+									seriesTitle: Session.get("seriesTitle"),
+									idString: Session.get("idString"),
+									commentRunTime: {$gt: this.commentRunTime}
+								}	
+								).count();
+
+
+		} else {
+			var commentsInScene = Comments.find(
+								{
+									type: {$exists: false},
+									seriesTitle: Session.get("seriesTitle"),
+									idString: Session.get("idString"),
+									commentRunTime: {$gt: this.commentRunTime, $lt: nextMarker.commentRunTime}
+								}	
+								).count();
+		}
+		return commentsInScene; 
+	},
 	sceneRuntime: function(){
 		return inMinutesSeconds(this.commentRunTime);
 	},
@@ -264,7 +303,7 @@ Template.showverse.events({
 		if(Session.get("setFromForm")==0){
 			return false;
 		}
-		console.log(parseInt(e.target.value));
+		//console.log(parseInt(e.target.value));
 		Session.set("sessionRunTime", parseInt(e.target.value));
 		Session.set("runTimeFromSlider", 1)
 		$('#timer').slider("value", e.target.value);
@@ -455,6 +494,7 @@ Deps.autorun(function() {
 			//console.log( inMinutesSeconds(markers[p].timestamp ));
 			currentMarker = markers[p].timestamp;
 			Session.set("currentSceneMarker", markers[p].showMarker);
+			Session.set("nextSceneTimeStart", markers[p].timestamp);
 		}
 	}
 	Session.set("setFromForm", 0);
