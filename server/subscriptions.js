@@ -63,7 +63,6 @@ Meteor.publish('commentsmeta', function(idString, groupName) {
     return CommentsMeta.find({idString: idString, groupName: groupName});
 }); 
 Meteor.publish('commentedUsers', function(){
-    console.log("this is me here.");
     return Meteor.users.find({});
 });
 serverCommentsPerEpisode = new Meteor.Collection("servercommentsperepisode");
