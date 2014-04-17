@@ -199,6 +199,7 @@ textarea.form-control:focus{
 	text-align:center;
 	padding-top:2px;
 	padding-bottom:2px;
+	font-size: 13px
 }
 
 .comment_list ul li.sub_comment_notice p{
@@ -875,9 +876,13 @@ LOGIN PAGE
   border-color: #666666; 
 } 
  
-
- 
 .btn-timer .badge { 
   color: #4E4E4E; 
   background-color: #FFFFFF; 
+}
+
+.caret.caret-reversed {
+    border-top-width: 0;
+    border-bottom: 4px solid #FFF;
+    color: #FFF;
 }
