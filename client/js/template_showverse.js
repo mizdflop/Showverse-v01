@@ -307,6 +307,7 @@ Template.showverse.events({
 		Session.set("sessionRunTime", parseInt(e.target.value));
 		Session.set("runTimeFromSlider", 1)
 		$('#timer').slider("value", e.target.value);
+		$( ".comment_list" ).scrollTop( 0 );
 	}
 
 });
