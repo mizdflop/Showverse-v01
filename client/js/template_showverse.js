@@ -313,6 +313,7 @@ Template.showverse.events({
 });
 Template.showverse.rendered = function ()
 {
+	Session.set("sessionRunTime",0);
 	$('.selectpicker_timer').selectpicker();
 	$( "#timer" ).slider({
 		range: "min",
