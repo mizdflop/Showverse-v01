@@ -18,6 +18,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+
 						<div class="content_left"><!--START LEFT CONTENT AREA-->
 
 							<div class="comment_input_box"><!--START COMMENT BOX AREA-->
@@ -75,7 +76,13 @@
 											<div class="user_comment">
 												<h4>{{commentorName}} <span class="user_time">&bullet; {{commentRunTime}}</span></h4>
 												<p>{{#markdown}}{{commentText}}{{/markdown}}</p>
-												<p><a href="#" title="{{likers}}" class="like_number" id="{{_id}}"><i class="glyphicon glyphicon-heart"></i> {{total_likes}} </a> &bullet; <a href="#" class="like_button" id="like-{{_id}}">{{likeunliketext}}</a>  {{#if ismine}}<a href="#" class="delete_post"> &bullet; <i class="glyphicon glyphicon-remove"></i> Delete</a>{{/if}}</p>
+												<p><a href="#" title="{{likers}}" class="like_number" id="{{_id}}"><i class="glyphicon glyphicon-heart"></i> {{total_likes}} </a> &bullet; <a href="#" class="like_button" id="like-{{_id}}">{{likeunliketext}}</a>  {{#if ismine}}
+													<a href="#" class="delete_post"> &bullet; <i class="glyphicon glyphicon-remove"></i> Delete</a>
+												{{else}}					<!--							
+													<a href="#" class="reply_post"> &bullet; Reply</a>
+													-->
+												{{/if}}
+											</p>
 											</div>
 										</li>
 									{{/if}}
@@ -122,11 +129,14 @@
 					</div>
 				</div>
 			</div>
-		</div><!--END MAINCONTENT AREA-->
+		</div>
+
+		<!--END MAINCONTENT AREA-->
 		<!--SHOW/HIDE USER MODAL-->
 			{{>modal}}
 			
 			{{>openingmodal}}
+			{{>discussionmodal}}
 
 
 
@@ -137,94 +147,5 @@
 
 
 
-<template name="leaderboard">
-							<div class="tab_area"><!--START TAB AREA-->
-								<ul class="btn-group btn-group-justified"><!--START TAB TRIGGER AREA-->
-									<li class="btn-group active">
-										<a href="#tab_A" class="btn btn-tab" data-toggle="tab">Most Active</a>
-									</li>
-									<li class="btn-group">
-										<a href="#tab_B" class="btn btn-tab" data-toggle="tab">Most Liked</a>
-									</li>
-								</ul><!--END TAB TRIGGER-->
-								
-								<div class="tab-content"><!--START TAB CONTENT AREA-->
-									
-									<div class="tab-pane active" id="tab_A"><!--TAB B CONTENT-->
-										<div class="most_comment_area">
-											<h4 class="text-left">Most Comments</h4>
-											<div class="comment_user_list">
-												<table class="table comment_user_table">
-													<tbody>
-														{{#each mostComments}}
-														<tr>
-															<td class="photo"><img src="{{picture}}" alt="USER"></td>
-															<td class="name">{{userName}}</td>
-															<td class="comment">{{totalComments}}</td>
-														</tr>
-														{{/each}}
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-									<div class="tab-pane" id="tab_B"><!--TAB B CONTENT-->
-										<div class="most_comment_area">
-											<h4 class="text-center">Most Likes</h4>
-											<div class="comment_user_list">
-												<table class="table comment_user_table">
-													<tbody>
-														{{#each mostLikes}}
-														<tr>
-															<td class="photo"><img src="{{picture}}" alt="USER"></td>
-															<td class="name">{{userName}}</td>
-															<td class="comment">{{totalLikes}}</td>
-														</tr>
-														{{/each}}													
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>									
-								</div><!--END TAB CONTENT AREA-->
-							</div><!--END TAB AREA-->
-
-</template>
 
 
-<template name="openingmodal">
-		<div class="modal fade" id="episode_contribute_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">
-						<div class="episode_title_box_contribute">
-							<p><i class="glyphicon glyphicon-eye-open"></i>&nbsp; Episode&nbsp; {{#with episodeInfo}}{{seasonNumber}}.{{episodeNumber}}: {{episodeTitle}}{{/with}}</p>
-						</div>
-
-						<div class="contribute_number">
-						<p>{{totalCommentorsMessage}}</p>
-						</div>
-						<div class="contribute_user_list">
-							<table class="table contribute_user_table">
-								<tbody>
-								{{#each commentorsList}}
-									<tr>
-										<td class="photo"><img src="{{picture}}" alt="USER"></td>
-										<td class="name">{{auserName}} <span>{{atotalComments}} comments made on {{dateOfComments}}</span></td>
-									</tr>								
-								{{/each}}
-								</tbody>
-							</table>
-						</div>
-						<div class="contribute_notice">
-							<p>Start the timer when you first hear the opening theme music. Add your comments and see what others had to say at that exact moment in the episode.</p>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-</template>

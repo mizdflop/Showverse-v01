@@ -1,0 +1,36 @@
+<template name="openingmodal">
+		<div class="modal fade" id="episode_contribute_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="episode_title_box_contribute">
+							<p><i class="glyphicon glyphicon-eye-open"></i>&nbsp; Episode&nbsp; {{#with episodeInfo}}{{seasonNumber}}.{{episodeNumber}}: {{episodeTitle}}{{/with}}</p>
+						</div>
+
+						<div class="contribute_number">
+						<p>{{totalCommentorsMessage}}</p>
+						</div>
+						<div class="contribute_user_list">
+							<table class="table contribute_user_table">
+								<tbody>
+								{{#each commentorsList}}
+									<tr>
+										<td class="photo"><img src="{{picture}}" alt="USER"></td>
+										<td class="name">{{auserName}} <span>{{atotalComments}} comments made on {{dateOfComments}}</span></td>
+									</tr>								
+								{{/each}}
+								</tbody>
+							</table>
+						</div>
+						<div class="contribute_notice">
+							<p>Start the timer when you first hear the opening theme music. Add your comments and see what others had to say at that exact moment in the episode.</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</template>

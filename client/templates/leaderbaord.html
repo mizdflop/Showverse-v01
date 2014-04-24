@@ -1,0 +1,56 @@
+<template name="leaderboard">
+							<div class="tab_area"><!--START TAB AREA-->
+								<ul class="btn-group btn-group-justified"><!--START TAB TRIGGER AREA-->
+									<li class="btn-group active">
+										<a href="#tab_A" class="btn btn-tab" data-toggle="tab">Most Active</a>
+									</li>
+									<li class="btn-group">
+										<a href="#tab_B" class="btn btn-tab" data-toggle="tab">Most Liked</a>
+									</li>
+								</ul><!--END TAB TRIGGER-->
+								
+								<div class="tab-content"><!--START TAB CONTENT AREA-->
+									
+									<div class="tab-pane active" id="tab_A"><!--TAB B CONTENT-->
+										<div class="most_comment_area">
+											<h4 class="text-left">Most Comments</h4>
+											<div class="comment_user_list">
+												<table class="table comment_user_table">
+													<tbody>
+														{{#each mostComments}}
+														<tr>
+															<td class="photo"><img src="{{picture}}" alt="USER"></td>
+															<td class="name">{{userName}}</td>
+															<td class="comment">{{totalComments}}</td>
+														</tr>
+														{{/each}}
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="tab_B"><!--TAB B CONTENT-->
+										<div class="most_comment_area">
+											<h4 class="text-center">Most Likes</h4>
+											<div class="comment_user_list">
+												<table class="table comment_user_table">
+													<tbody>
+														{{#each mostLikes}}
+														<tr>
+															<td class="photo"><img src="{{picture}}" alt="USER"></td>
+															<td class="name">{{userName}}</td>
+															<td class="comment">{{totalLikes}}</td>
+														</tr>
+														{{/each}}													
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>									
+								</div><!--END TAB CONTENT AREA-->
+							</div><!--END TAB AREA-->
+
+
+ 
+
+</template>
