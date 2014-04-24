@@ -1,0 +1,35 @@
+<template name="discussionmodal">
+		<div class="modal fade" id="discussion_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="episode_title_box_contribute">
+							<h2>Reply to comment</h2>
+						</div>
+						{{#with commentForDiscussion}}
+						<div class="contribute_number">
+							<p>{{sceneDescription}}</p>
+							<p>{{commentorName}}</p>
+							<p>{{commentText}}</p>
+							</div>
+						{{/with}}
+						<div class="contribute_user_list">
+							<textarea rows="4" id="discussionEnter"></textarea>
+							<button id="enterComment">enter</button>
+						</div>
+						<div class="contribute_notice">
+							{{#each conversation}}
+								<p>{{userName}}</p>
+								<p>{{discussionText}}</p>
+								<p>{{timeEntered}}</p>
+							{{/each}}
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</template>

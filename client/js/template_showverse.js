@@ -8,8 +8,8 @@ Session.set("timeOfPress",0);
 Session.set("modalShown", 0);
 dataArray = [];
 var k=0;
-var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-var weekday=new Array(7);
+months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+weekday=new Array(7);
 weekday[0]="Sunday";
 weekday[1]="Monday";
 weekday[2]="Tuesday";
@@ -308,6 +308,12 @@ Template.showverse.events({
 		Session.set("runTimeFromSlider", 1)
 		$('#timer').slider("value", e.target.value);
 		$( ".comment_list" ).scrollTop( 0 );
+	},
+	'click .reply_post': function(e){
+		Session.set("commentForDiscussion", this._id);
+		$('#discussion_modal').modal('show');
+
+
 	}
 
 });
@@ -333,12 +339,10 @@ Template.showverse.rendered = function ()
 	});	
 	// Assuming you're using jQuery 
    $('body').on('keydown',function(e) { 
-   		if(Session.equals("timeOfPress",0) || Session.get("timeOfPress")+50 < Date.now()){
-			if(e.which==32 && e.target.id!="inputbox"){
-				e.preventDefault();
-				playPause();				
-				Session.set("timeOfPress", Date.now());					
-			}
+   		console.log(e.target.id);
+   		if(e.which==32 && e.target.id!="inputbox" && e.target.id !="discussionEnter"){
+			e.preventDefault();
+			playPause();				
 		}	
 	});
    if(!Meteor.user().profile){
@@ -349,8 +353,6 @@ Template.showverse.rendered = function ()
    		Session.set("nameForInserts", Meteor.user().username);
    }
    if(CommentsMeta.find ({'userId': Meteor.userId()}).count()==0){
-   		console.log("why am i here. line 220");
-
    		CommentsMeta.insert({
    			userId: Meteor.userId(),
    			idString: Session.get("idString"),
@@ -382,56 +384,6 @@ Template.showverse.rendered = function ()
 		
 }
 
-
-//*******  For Opening Modal *****************
-Template.openingmodal.atotalCommentors = function(){
-	var totalCommentors = CommentsMeta.find({totalComments: {$gt: 0}}).count();
-	if ( totalCommentors == 1){
-		return "One person has contributed to the to this episode:";
-	} else if(totalCommentors ==0) {
-		return "You will be the first to contribute to this episode.";
-	} else {
-		return totalCommentors  + " People contributed to this episode:";
-	}
-}
-
-Template.openingmodal.commentorsList = function() {
-	return CommentsMeta.find({totalComments: {$gt: 0}});
-}
-Template.openingmodal.totalCommentorsMessage = function(){
-	var counter = CommentsMeta.find({totalComments: {$gt: 0}}).count();
-	if (counter == 0 ){
-		return "You will be the first contributor to this episode.";
-	} else if (counter == 1){
-		return "One person has contributed to this episode.";
-	} else {
-		return counter + "People have contributed to this episode"; 
-	}
-}
-Template.openingmodal.auserName = function() {
-	var cursor = Meteor.users.findOne({_id: this.userId});
-	return cursor.username;
-}
-Template.openingmodal.atotalComments = function() {
-	return this.totalComments;
-}
-Template.openingmodal.picture = function() {
-	var cursor = Meteor.users.findOne({_id: this.userId});
-	return cursor.profile[0].picture;
-}
-Template.openingmodal.dateOfComments = function(){
-	var aComment = Comments.findOne({userId: this.userId});
-	var d = new Date();
-	d.setTime(aComment.timestamp);
-	return( weekday[d.getDay()] + ", " + months[d.getMonth()] +  " " + 
-			d.getDate() + " " + d.getFullYear());
-	//WORKING HERE
-}
-
-Template.openingmodal.rendered = function(){
-	$('#episode_contribute_modal').modal('show');
-	$('.selectpicker_timer').selectpicker();
-}
 
 
 function playPause(){
