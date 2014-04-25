@@ -7,7 +7,7 @@ Session.set("sliderInitialized", 0)
 Session.set("timeOfPress",0);
 Session.set("modalShown", 0);
 dataArray = [];
-var k=0;
+postId="";
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 weekday=new Array(7);
 weekday[0]="Sunday";
@@ -257,10 +257,31 @@ Template.showverse.events({
 	},
 	'keypress #inputbox': function (e){ 
 		//console.log("hey");
-		if(e.charCode == 13) {		
-			//console.log("how many times");
+			if(e.charCode == 13) {		
 			var timestamp = Date.now();
 			var commentText = $('#inputbox').val();
+			//is there an @mention in the post
+			//find out who was mentioned,
+			//add into CommentsMets
+			if(commentText.indexOf("@")!= -1 ){
+				var mentions=[];
+				var wordsArray = commentText.split(" ");
+				for(var i=0; i<wordsArray.length; i++){
+					if(wordsArray[i].indexOf("@") === 0 ){
+						//see if the @mention relates to 
+						//someone in the Users collection,
+						//but first strip the @
+						var forQuery = wordsArray[i].substr(1);
+						var result = Meteor.users.findOne({username: forQuery});
+						if( result!=undefined ){ // this is a valid @mention
+							mentions.push( result._id);
+							//format the metion with <strong>
+							wordsArray[i] = "<strong>" + wordsArray[i] + "</strong>";
+						}
+					}
+				}
+				commentText = wordsArray.join(" ");
+			}
 			if (commentText.length < 1) { return false; }
 			Comments.insert({
 					userId: Meteor.userId(),
@@ -271,18 +292,24 @@ Template.showverse.events({
 					seriesTitle: Session.get("seriesTitle"),
 					groupName: Session.get("groupName"),
 					likesCount:0,
-					likers:[]
+					likers:[],
+					mentions: mentions
 				}, function(err, theId){
-					//console.log(err);
-					//console.log(theId);
-
+					if(mentions.length >0){
+						for(var i=0; i<mentions.length; i++){
+							var tempResult = CommentsMeta.findOne({userId: mentions[i], idString: Session.get("idString"), groupName: Session.get("groupName")});
+							CommentsMeta.update(
+								{_id: tempResult._id},
+								{$push: {mentionedIn: theId}}
+							);
+						}
+					}
 				}
 			);
 			CommentsMeta.update(
 					{_id: Session.get("CommentsMetaId")}, 
 					{'$inc': {totalComments: 1}}
 			);
-
 			$('#inputbox').val("");
 			event.preventDefault();
 			event.stopPropagation();
@@ -339,12 +366,49 @@ Template.showverse.rendered = function ()
 	});	
 	// Assuming you're using jQuery 
    $('body').on('keydown',function(e) { 
-   		console.log(e.target.id);
    		if(e.which==32 && e.target.id!="inputbox" && e.target.id !="discussionEnter"){
 			e.preventDefault();
 			playPause();				
 		}	
 	});
+	$("#inputbox")
+	.bind("keydown", function(event) {
+		//console.log( $('#ui-id-1').is(":visible") );
+	    if (event.keyCode === $.ui.keyCode.TAB && $('#ui-id-1').is(":visible")) {
+	        event.preventDefault();
+	    }
+	}).autocomplete({
+	    minLength: 0,
+	    source: function(request, response) {
+	        var term = request.term,
+	            results = [];
+	        if (term.indexOf("@") >= 0) {
+	            term = extractLast(request.term);
+	            if (term.length > 0) {
+	                results = $.ui.autocomplete.filter(
+	                availableTags, term);
+	            } else {
+	                results = [startTyping];
+	            }
+	        }
+	        response(results);
+	    },
+	    focus: function() {
+	        return false;
+	    },
+	    select: function(event, ui) {
+	        if (ui.item.value !== startTyping) {
+	            var terms = this.value.split(' ');
+	            terms.pop();
+	            terms.push("@" + ui.item.value);
+	            this.value = terms.join(" ");
+	        }
+	        return false;
+	    }
+	 });
+
+   // Make sure user isn't totally nnw. if he is, give
+   // him a document in CommentsMeta
    if(!Meteor.user().profile){
    		Session.set("nameForInserts", Meteor.user().username);
    		Session.set("imageForInserts", "/img/placeholder.jpg");
@@ -371,19 +435,19 @@ Template.showverse.rendered = function ()
    		var thePointer = CommentsMeta.findOne({'userId': Meteor.userId()});
 		Session.set("CommentsMetaId", thePointer._id);
    }
-   //load show notes into comments Collection
-   var epHolder = Episodes.find().fetch();
-   //Commets.remove
-   var markersObj = epHolder.markers
-	for(var p in markersObj){
-		Comments.insert(
+   //need to create an active list of users for this set of comments
+   var forCommentorsList = CommentsMeta.find({groupName: Session.get("groupName"), idString: Session.get("idString")}).fetch();
+	var theUserIds = _.pluck(forCommentorsList, "userId");
+	var theUserNames=[];
+	for(var i=0; i<theUserIds.length; i++){
+		var theHolder = Meteor.users.findOne({_id: theUserIds[i]});
+		console.log(theUserIds[i]);
+		theUserNames.push(theHolder.username);
 
-
-		);
 	}
-		
+	Session.set("usersWhocommented", theUserNames);
+	
 }
-
 
 
 function playPause(){
@@ -469,4 +533,18 @@ function inMinutesSeconds(seconds){
 	var seconds = parseInt(timeInSeconds % 60, 10);
 	counterFormat = (minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds);
 	return(counterFormat);			
+}
+
+
+var availableTags = Session.get("usersWhocommented");
+
+
+var startTyping = "Start typing...";
+
+function split(val) {
+    return val.split(/@/);
+}
+
+function extractLast(term) {
+    return split(term).pop();
 }
