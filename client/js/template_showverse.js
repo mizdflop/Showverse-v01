@@ -435,18 +435,7 @@ Template.showverse.rendered = function ()
    		var thePointer = CommentsMeta.findOne({'userId': Meteor.userId()});
 		Session.set("CommentsMetaId", thePointer._id);
    }
-   //need to create an active list of users for this set of comments
-   var forCommentorsList = CommentsMeta.find({groupName: Session.get("groupName"), idString: Session.get("idString")}).fetch();
-	var theUserIds = _.pluck(forCommentorsList, "userId");
-	var theUserNames=[];
-	for(var i=0; i<theUserIds.length; i++){
-		var theHolder = Meteor.users.findOne({_id: theUserIds[i]});
-		console.log(theUserIds[i]);
-		theUserNames.push(theHolder.username);
 
-	}
-	Session.set("usersWhocommented", theUserNames);
-	
 }
 
 
@@ -522,7 +511,17 @@ Deps.autorun(function() {
 
 });
 
-
+Deps.autorun(function(){
+   var currentTime = Session.get("sessionRunTime");
+   //need to create an active list of users for this set of comments
+   	var forCommentorsList= CommentsMeta.find({groupName: Session.get("groupName"), idString: Session.get("idString")}).fetch();
+	var theUserIds = _.pluck(forCommentorsList, "userId");
+	var theUserNames=[];
+	for(var i=0; i<theUserIds.length; i++){
+		var theHolder = Meteor.users.findOne({_id: theUserIds[i]});
+		theUserNames.push(theHolder.username);
+	}
+});
 
 function inMinutesSeconds(seconds){
 	var timeInSeconds=seconds;
