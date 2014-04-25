@@ -521,6 +521,7 @@ Deps.autorun(function(){
 		var theHolder = Meteor.users.findOne({_id: theUserIds[i]});
 		theUserNames.push(theHolder.username);
 	}
+	availableTags = theUserNames;
 });
 
 function inMinutesSeconds(seconds){
@@ -535,7 +536,7 @@ function inMinutesSeconds(seconds){
 }
 
 
-var availableTags = Session.get("usersWhocommented");
+var availableTags;
 
 
 var startTyping = "Start typing...";
