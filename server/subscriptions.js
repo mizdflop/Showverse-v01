@@ -31,6 +31,8 @@ Meteor.publish('comments', function (idString, seriesTitle, groupName) {
                 groupName: groupName
             },
             {
+                idString: idString, 
+                seriesTitle: seriesTitle, 
                 type: "sceneMarker"
             }
           ]  
