@@ -75,8 +75,7 @@ Template.showverse.helpers({
 	},
 
 	totalComments: function() {
-		result = Comments.find({userId: {$exists: true}}).count();
-		return result;		
+		return Comments.find({userId: {$exists: true}}).count();
 	},
 	likers: function(){
 		if (this.likers.length==0){
@@ -98,10 +97,8 @@ Template.showverse.helpers({
 		}		
 	},
 	commentorName: function() {
-		var cursor = Meteor.users.findOne({_id: this.userId});
-		return cursor.username;
+		return _.pluck(Meteor.users.find({_id: this.userId}, {fields: {username: 1}}).fetch(), 'username');
 	},
-
 	commentText: function(){
   		return this.commentText;
 	},
@@ -121,7 +118,6 @@ Template.showverse.helpers({
 		if (Comments.find( {_id: this._id, likers: Meteor.userId()} ).count()) {
 			Session.set(this._id, "UserLikesIt");	
 			return "Unlike";
-		
 		} else {
 			Session.set(this._id, "UserDoesntLikesIt");
 			return "Like";

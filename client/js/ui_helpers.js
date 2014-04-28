@@ -43,5 +43,5 @@ UI.registerHelper("episodeAirDate", function () {
 	return theMonth + " " + theDate + ", " + fullYear;
 });
 UI.registerHelper("totalCommentors", function() {		
-	return CommentsMeta.find({totalComments: {$gt: 0}}).count();
+	return CommentsMeta.find({totalComments: {$gt: 0}}).count() - Session.get("unseenUsers").length;
 });
