@@ -886,3 +886,126 @@ LOGIN PAGE
     border-bottom: 4px solid #b3b3b3;
     color: #b3b3b3;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+	Reply Modal
+*/
+
+
+.comment_delete_button, .comment_delete_button:hover, .comment_delete_button:focus{
+	color:#CDCCD2;
+}
+
+.comment_delete_button .delete_icon{
+	display: inline-block;
+	font-size: 23px;
+	vertical-align: middle;
+}
+
+.replies_modal{
+	
+}
+
+.replies_modal .modal-body{
+	
+}
+
+.replies_modal .comment{
+	
+}
+
+.sub_comment_replies_area{
+	background-color: #F5F8FA;
+	border-bottom: 1px solid #EAEAEA;
+	border-top: 1px solid #EAEAEA;
+	overflow: hidden;
+	position:relative;
+}
+
+.comment_reply_form .user_photo{
+	height:35px;
+}
+
+.sub_comment_reply_list{
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.sub_comment_reply_list ul{
+	
+}
+
+.sub_comment_reply_list ul li{
+	overflow:hidden;
+	margin-bottom:8px;
+}
+
+.sub_comment_reply_list ul li .user_photo{
+	width:35px;
+	height:35px;
+}
+
+.sub_comment_reply_list ul li .user_comment{
+	
+}
+
+.sub_comment_reply_list ul li .user_comment .comment_time{
+	color:#666;
+	display:block;
+}
+
+.load_more_area{
+	border-top: 1px solid #DDDDDD;
+	margin-top: 15px;
+	padding-top: 10px;
+}
+
+.load_more_area p{
+	margin:0px;
+}
+
+.load_more_area p a{
+	
+}
+
+.load_more_area p span{
+	color:#666;
+}
+
+.right_replies{
+	border-left: 1px solid #DDDDDD;
+	float: right;
+	padding-left: 10px;
+	margin-top:3px;
+}
+
+.right_replies p{
+	margin:0px;
+	color:#DDD;
+}
+
+.right_replies p a{
+	font-size:20px;
+}
+
+.comment_reply_form .user_comment .reply_button{
+	margin-top:5px;
+}

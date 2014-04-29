@@ -136,6 +136,62 @@
 	width: 285px;
 }
 
+.comment_reply_form{
+border-bottom: 1px solid #EAEAEA;
+left: 20px;
+padding-bottom: 15px;
+position: fixed;
+right: 20px;
+padding-left:15px;
+padding-right:15px;
+}
+
+.sub_comment_reply_list{
+	margin-top: 200px;
+	max-height: 415px;
+}
+
+.comment_reply_form .user_photo{
+	text-align:center;
+	margin-top:0px;
+	margin-bottom:15px;
+}
+
+.load_more_area p span{
+	display:block;
+	margin-top:5px;
+}
+
+.load_more_area{
+	text-align:center;
+}
+
+.sub_comment_replies_area{
+	padding: 15px;
+}
+
+.right_replies{
+	display:none;
+	width: 60px;
+}
+
+.comment_reply_form .user_comment{
+	width:100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -176,7 +232,7 @@
 }
 
 .user_comment{
-	width:83%;
+	width:70%;
 }
 
 .user_photo{
@@ -298,6 +354,48 @@
 	width:258px;
 }
 
+.comment_reply_form{
+	border-bottom: 1px solid #EAEAEA;
+	left: 20px;
+	padding-bottom: 15px;
+	position: fixed;
+	right: 20px;	
+}
+
+.sub_comment_reply_list{
+	margin-top: 120px;
+	max-height: 200px;
+}
+
+.comment_reply_form .user_photo{
+	text-align:right;
+	margin-top:0px;
+}
+
+
+.load_more_area p span{
+	float:right;
+}
+
+.sub_comment_replies_area{
+	padding: 15px 25px;
+}
+
+.right_replies{
+	width: 60px;
+}
+
+.comment_reply_form .user_comment{
+	width:83%;
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -353,7 +451,7 @@
 }
 
 .user_comment{
-	width:87.5%;
+	width:76%;
 }
 
 .user_photo{
@@ -471,6 +569,42 @@
 	width:368px;
 }
 
+.comment_reply_form{
+	border-bottom: 1px solid #EAEAEA;
+	left: 20px;
+	padding-bottom: 15px;
+	position: fixed;
+	right: 20px;
+}
+
+.sub_comment_reply_list{
+	margin-top: 120px;
+	max-height: 200px;
+}
+
+.comment_reply_form .user_photo{
+	text-align:right;
+	margin-top:0px;
+}
+
+.load_more_area p span{
+	float:right;
+}
+
+.sub_comment_replies_area{
+	padding: 15px 25px;
+}
+
+.right_replies{
+	width: 65px;
+}
+
+.comment_reply_form .user_comment{
+	width:82.5%;
+}
+
+
+
 
 
 
@@ -510,7 +644,7 @@
 }
 
 .user_comment{
-	width:90%;
+	width:80%;
 }
 
 .user_photo{
@@ -627,6 +761,67 @@
 #series_selection select{
 	width:468px;
 }
+
+.comment_reply_form{
+	border-bottom: 1px solid #EAEAEA;
+	left: 20px;
+	padding-bottom: 15px;
+	position: fixed;
+	right: 30px;
+}
+
+.sub_comment_reply_list{
+	margin-top: 135px;
+	max-height: 205px;
+}
+
+.comment_reply_form .user_photo{
+	text-align:right;
+	margin-top:0px;
+}
+
+.load_more_area p span{
+	float:right;
+}
+
+.sub_comment_replies_area{
+	padding: 15px 25px;
+}
+
+.right_replies{
+	width: 60px;
+}
+
+.comment_reply_form .user_comment{
+	width:84.5%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,35 +1,59 @@
 <template name="discussionmodal">
-		<div class="modal fade" id="discussion_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
+		<div class="modal fade replies_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Reply to Comment</h4>
+					</div>
 					<div class="modal-body">
-						<div class="episode_title_box_contribute">
-							<h2>Reply to comment</h2>
-						</div>
-						{{#with commentForDiscussion}}
-						<div class="contribute_number">
-							<p>{{sceneDescription}}</p>
-							<p>{{commentorName}}</p>
-							<p>{{commentText}}</p>
+						<div class="comment">
+							{{#with commentForDiscussion}}
+							<div class="user_photo">
+								<img src="{{commentorPhoto}}" alt="USER">
 							</div>
-						{{/with}}
-						<div class="contribute_user_list">
-							<textarea rows="4" id="discussionEnter"></textarea>
-							<button id="enterComment">enter</button>
-						</div>
-						<div class="contribute_notice">
-							{{#each conversation}}
-								<p>{{userName}}</p>
-								<p>{{discussionText}}</p>
-								<p>{{timeEntered}}</p>
-							{{/each}}
+							<div class="user_comment">
+								<h4>{{commentorName}} <span class="user_time">&bullet; {{commentRunTime}}</span></h4>
+								<p>{{#markdown}}{{commentText}}{{/markdown}}</p>
+								<p><a href="#" class="like_number"><i class="glyphicon glyphicon-heart"></i> {{numberLikes}} </a> &bullet; <a href="#" class="like_button">Like</a> &nbsp; <i class="glyphicon glyphicon-comment"></i> {{numberReplies}} Replies</p>
+							</div>
+							{{/with}}
+							<div class="clearfix"></div>
+							<div class="sub_comment_replies_area">
+								<form class="comment_reply_form">
+									<div class="user_photo">
+										<img src="{{currentUserPhoto}}" alt="USER">
+									</div>
+									<div class="user_comment">
+										<textarea name="comment" rows="4" type="text" id ="discussionEnter" class="form-control" placeholder="Reply..."></textarea>
+										<!-- <button id="commentButton" class="btn btn-sm btn-primary reply_button">Reply</button> -->
+									</div>
+								</form>
+								<div class="sub_comment_reply_list">
+									<ul>
+									{{#each discussionItems}}
+
+										<li>
+											<div class="user_photo">
+												<img src="{{discussionItemUserPhoto}}" alt="USER">
+											</div>
+											<div class="user_comment">
+												<p><strong>{{discussionItemusername}}</strong> {{#markdown}}{{discussionItemText}}{{/markdown}}<span class="comment_time">{{discussionItemEnterTime}}</span></p>
+											</div>
+										</li>
+									{{/each}}
+									</ul>
+								</div>
+								<!--<div class="load_more_area">
+									<p><a href="#"><i class="glyphicon glyphicon-comment"></i> View 31 more replies</a> <span>Showing 3 of 34 replies</span></p>
+								</div> -->
+							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
 		</div>
-
 </template>

@@ -106,7 +106,7 @@ Template.showverse.helpers({
 		return inMinutesSeconds(this.commentRunTime);
 	},
 	total_likes: function() {
-		return this.likesCount;		
+		return this.likers.length;		
 	},
 
 	picture: function() {
@@ -210,12 +210,25 @@ Template.showverse.helpers({
 	},
 	currentSceneMarker: function(){
 		return Session.get("currentSceneMarker");
+	},
+	hasComments: function(){
+		if(this.discussions!=undefined && this.discussions.length >0){
+			return true;
+		}
+		return false;
+	},
+	numberReplies: function(){
+		if(this.discussions!=undefined && this.discussions.length >0){
+			return this.discussions.length;
+		} 
+		return "0";
 	}
 
 });
 
 Template.showverse.events({
 	'click .like_button, click .like_number' : function() {
+		console.log(this._id);
 		//id of the comment
 		var theID = this._id;
 		//get id of the user for use in updating CommentsMeta
@@ -332,11 +345,9 @@ Template.showverse.events({
 		$('#timer').slider("value", e.target.value);
 		$( ".comment_list" ).scrollTop( 0 );
 	},
-	'click .reply_post': function(e){
+	'click .right_replies, click .reply_count, click .reply_button, click .replies_number': function(){
 		Session.set("commentForDiscussion", this._id);
-		$('#discussion_modal').modal('show');
-
-
+		$('.replies_modal').modal('show');
 	}
 
 });
@@ -520,7 +531,7 @@ Deps.autorun(function(){
 	availableTags = theUserNames;
 });
 
-function inMinutesSeconds(seconds){
+inMinutesSeconds = function(seconds){
 	var timeInSeconds=seconds;
 	var hours = Math.floor(timeInSeconds / 3600);
 	timeInSeconds -= hours * 3600;
@@ -530,8 +541,20 @@ function inMinutesSeconds(seconds){
 	counterFormat = (minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds);
 	return(counterFormat);			
 }
-
-
+userNameFromId = function(userId){
+	var holder = Meteor.users.findOne({_id: userId});
+	return holder.username;
+}
+userPhotoFromId = function(userId){
+	var holder = Meteor.users.findOne({_id: userId});
+	return holder.profile[0].picture;	
+}
+fixMinutes = function(minutes){
+	if(parseInt(minutes) < 10){
+		minutes = "0" + minutes;
+	} 
+	return minutes;
+}
 var availableTags;
 
 

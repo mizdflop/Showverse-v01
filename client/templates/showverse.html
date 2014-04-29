@@ -7,7 +7,7 @@
 						<div class="title"><!--EPISODE TITLE-->
 							{{#with episodeInfo}}
 							<h3>{{seriesTitle}}/{{seasonNumber}}.{{episodeNumber}}: {{episodeTitle}}</h3>
-							<p><strong>Aired on:</strong>  &bullet; <strong>Network:</strong> {{network}} &bullet; <strong>IMDB user rating: {{imdbRating}} </strong>/ 10 stars.</p>
+							<p><strong>Aired on:</strong> {{episodeAirDate}}  &bullet; <strong>Network:</strong> {{network}} &bullet; <strong>IMDB user rating: {{imdbRating}} </strong>/ 10 stars.</p>
 							{{/with}}
 						</div>
 					</div>
@@ -77,14 +77,20 @@
 											<div class="user_comment">
 												<h4>{{commentorName}} <span class="user_time">&bullet; {{commentRunTime}}</span></h4>
 												<p>{{#markdown}}{{commentText}}{{/markdown}}</p>
-												<p><a href="#" title="{{likers}}" class="like_number" id="{{_id}}"><i class="glyphicon glyphicon-heart"></i> {{total_likes}} </a> &bullet; <a href="#" class="like_button" id="like-{{_id}}">{{likeunliketext}}</a>  {{#if ismine}}
+												<p><a href="#" title="{{likers}}" class="like_number" id="{{_id}}"><i class="glyphicon glyphicon-heart"></i> {{total_likes}} </a> &bullet; <a href="#" class="like_button" id="like-{{_id}}">{{likeunliketext}}</a> 
+
+												&nbsp; <a href="#" class="replies_number"><i class="glyphicon glyphicon-comment"></i> {{numberReplies}} </a> &bullet; <a href="#" class="reply_button">Reply</a>
+												{{#if ismine}}
 													<a href="#" class="delete_post"> &bullet; <i class="glyphicon glyphicon-remove"></i> Delete</a>
-												{{else}}					<!--							
-													<a href="#" class="reply_post"> &bullet; Reply</a>
-													-->
 												{{/if}}
-											</p>
-											</div>
+												</p>
+												</div>
+
+												{{#if hasComments}}
+													<div class="right_replies">
+														<p>Replies <br /> <a href="#" class="reply_count">{{numberReplies}}</a></p>
+													</div>
+												{{/if}}
 										</li>
 									{{/if}}
 
