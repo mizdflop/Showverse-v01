@@ -388,7 +388,9 @@ padding-right:15px;
 .comment_reply_form .user_comment{
 	width:83%;
 }
-
+.sub_comment_reply_list .user_comment{
+	width: 90%;
+}
 
 
 
@@ -602,7 +604,9 @@ padding-right:15px;
 .comment_reply_form .user_comment{
 	width:82.5%;
 }
-
+.sub_comment_reply_list .user_comment{
+	width: 90%;
+}
 
 
 
@@ -795,7 +799,9 @@ padding-right:15px;
 .comment_reply_form .user_comment{
 	width:84.5%;
 }
-
+.sub_comment_reply_list .user_comment{
+	width: 90%;
+}
 
 
 
