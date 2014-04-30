@@ -941,7 +941,12 @@ LOGIN PAGE
 }
 
 .comment_reply_form .user_photo{
-	height:35px;
+	height:40px;
+	width:40px;
+}
+.modal-body .comment .sub_comment_reply_list .user_photo{
+	height: 30px;
+	width: 30px
 }
 
 .sub_comment_reply_list{

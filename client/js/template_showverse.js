@@ -409,6 +409,7 @@ Template.showverse.rendered = function ()
 	            var terms = this.value.split(' ');
 	            terms.pop();
 	            terms.push("@" + ui.item.value);
+	            //terms.push("[@" + ui.item.value + "]");
 	            this.value = terms.join(" ");
 	            console.log(this.value);
 	        }
