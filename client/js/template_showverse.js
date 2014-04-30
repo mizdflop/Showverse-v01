@@ -280,6 +280,7 @@ Template.showverse.events({
 						//see if the @mention relates to 
 						//someone in the Users collection,
 						//but first strip the @
+						wordsArray[i]=wordsArray[i].replace("_", " ");
 						var forQuery = wordsArray[i].substr(1);
 						var result = Meteor.users.findOne({username: forQuery});
 						if( result!=undefined ){ // this is a valid @mention
@@ -409,6 +410,7 @@ Template.showverse.rendered = function ()
 	            terms.pop();
 	            terms.push("@" + ui.item.value);
 	            this.value = terms.join(" ");
+	            console.log(this.value);
 	        }
 	        return false;
 	    }
@@ -526,9 +528,10 @@ Deps.autorun(function(){
 	var theUserNames=[];
 	for(var i=0; i<theUserIds.length; i++){
 		var theHolder = Meteor.users.findOne({_id: theUserIds[i]});
-		theUserNames.push(theHolder.username);
+		theUserNames.push( theHolder.username.replace(" ", "_") );
 	}
 	availableTags = theUserNames;
+	//for testing
 });
 
 inMinutesSeconds = function(seconds){

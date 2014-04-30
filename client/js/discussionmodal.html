@@ -1,6 +1,6 @@
 <template name="discussionmodal">
 		<div class="modal fade replies_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
+			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -25,7 +25,7 @@
 										<img src="{{currentUserPhoto}}" alt="USER">
 									</div>
 									<div class="user_comment">
-										<textarea name="comment" rows="4" type="text" id ="discussionEnter" class="form-control" placeholder="Reply..."></textarea>
+										<textarea name="comment" rows="2" type="text" id ="discussionEnter" class="form-control" placeholder="Reply..."></textarea>
 										<!-- <button id="commentButton" class="btn btn-sm btn-primary reply_button">Reply</button> -->
 									</div>
 								</form>
