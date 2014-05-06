@@ -1,0 +1,37 @@
+<template name="admin_add_series">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-6">
+					<h1>Add a Series</h1>
+					{{> insertSeriesForm}}
+				</div>
+				<div class="col-xs-6">
+					<h1>Add an Episode</h1>
+					{{> fksToSeries}}
+					{{> insertEpisodeForm}}
+				</div>
+				<div class="col-xs-6">
+					<h1>Add a Group</h1>
+					{{> insertGroupForm}}
+				</div>
+			</div>
+		</div>
+</template>
+
+<template name="insertSeriesForm">
+	{{> quickForm collection="Series" id="insertSeriesForm" type="insert"}}
+</template>
+<template name="insertEpisodeForm">
+	{{> quickForm collection="Episodes" id="insertEpisodeForm" type="insert"}}
+</template>
+<template name="insertGroupForm">
+	  {{> quickForm collection="Groups" id="insertGroupForm" type="insert"}}
+</template>
+<template name="fksToSeries">
+	<select id="pickSeries">
+	<option value="">Pick One</option>
+	{{#each seriesInDb}}
+		<option value="{{seriesId}}">{{seriesTitle}}</option>
+	{{/each}}
+	</select>
+</template>

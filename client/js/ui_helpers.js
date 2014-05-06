@@ -1,3 +1,19 @@
+UI.registerHelper("editableEpisodes", function() {
+	return Episodes.find({});
+});
+
+UI.registerHelper("episodesForForm", function() {
+	var allEpiodes = Episodes.find().fetch();
+	var holder = _.map(allEpiodes, function(item){
+		return {value: item["_id"], label: item["seriesTitle"] + " " + item["seasonNumber"] + "." + item["episodeNumber"]};
+	});
+	return holder;
+});
+UI.registerHelper("typeForForm", function() {
+	return [{label: "Quip", value: "Quip"}, {label: "Longread", value:"Longread"}];
+});
+
+
 UI.registerHelper("getCommentors", function(){
 	return CommentsMeta.find({totalComments: {$gt: 0}});	
 });
