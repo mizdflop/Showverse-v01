@@ -1,0 +1,30 @@
+.draggable_user {
+	width: 150px;
+	height: 105	px;
+	border: 1px solid #222222;
+	padding: 5px 10px;
+}
+.draggable_user .user_name {
+	text-align: center;
+	font-size: 12px;
+	font-weight: bold; 
+}
+.draggable_user .user_icon img{
+	border-top: 10px;
+	width: 65px;
+    display:block;
+    margin:auto;
+    with: 50%;
+}
+.draggable_user .user_total_comments {
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold; 
+}
+.draggable_user hr{
+	border-top: 2px solid
+}
+.draggable_user .user_speech{
+	border-left: 8px;
+	border-top: 8px;
+}

@@ -67,6 +67,9 @@ Meteor.publish('commentsmeta', function(idString, groupName) {
 Meteor.publish('commentedUsers', function(){
     return Meteor.users.find({});
 });
+Meteor.publish('bestof', function(){
+    return Bestof.find({});
+});
 serverCommentsPerEpisode = new Meteor.Collection("servercommentsperepisode");
 
 //working agg function

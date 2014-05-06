@@ -1,16 +1,28 @@
 <template name="admin_edit_episodes">
-<h1>Edit an Episode</h1>
-<!-- clickable ist of series that update a Session Variable -->
+	<div class="container">
+		<div class="row">
+			<div class="xs-col-2"></div>
+			<div class="xs-col-8">
+				<h1>Edit an Episode</h1>
+				<!-- clickable ist of series that update a Session Variable -->
 
-<!--Need to add forms for update and delette -->
+				<!--Need to add forms for update and delette -->
 
 
-<h4>Click on a Series to populate the form</h4>
-{{#each editableEpisodes}}
-<p><a href="#" class="popForm">{{seriesTitle}}, {{seasonNumber}}, {{episodeNumber}}</a></p>
-{{/each}}
+				<h4>Choose an Episods to Populate the form</h4>
+				<select id="chooseEpisode">
+					<option>Select One</option>
+					{{#each editableEpisodes}}
+						<option value="{{_id}}">
+							{{seriesTitle}}, {{seasonNumber}}, {{episodeNumber}}
+						</option>
+					{{/each}}
+				</select>
 
-  {{> quickForm collection="Episodes" doc=editingDoc id="admin_edit_episodes" type="update"}}
+				  {{> quickForm collection="Episodes" doc=editingDoc id="admin_edit_episodes" type="update"}}
+			</div>
+		</div>
+	</div>
 
 </template>
 

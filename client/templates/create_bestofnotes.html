@@ -1,0 +1,33 @@
+<template name="admin_create_bestofnotes">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-3"></div>
+			<div class="col-xs-6">
+				<!-- clickable ist of series that update a Session Variable -->
+
+				<!--Need to add forms for update and delette -->
+
+
+				<h2>Add Notes for an Episode</h2>
+				    {{#autoForm collection="Bestof" id="insertBookForm" type="insert"}}
+				    <fieldset>
+				        {{> afQuickField name='episodeId' options=episodesForForm}}
+				        {{> afQuickField name='generalNote'}}
+				        {{> afQuickField name='attachedToTimeline'}}
+				        {{> afQuickField name='runtime'}}
+				        {{> afQuickField name='sourceName'}}
+				        {{> afQuickField name='sourceRootUri'}}
+				        {{> afQuickField name='text' rows=5}}
+				        {{> afQuickField name='directUri'}}
+				        {{> afQuickField name='author'}}
+				        {{> afQuickField name='authorUri'}}
+				        {{> afQuickField name='bestOfType' options=typeForForm}}
+				    </fieldset>
+				    <button type="submit" class="btn btn-primary">Insert</button>
+				    {{/autoForm}}
+			</div>
+		</div>
+	</div>
+
+</template>
+

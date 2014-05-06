@@ -1,0 +1,31 @@
+<template name="draggableplay">
+	<div class="row">
+		<div class="col-xs-4"></div>
+		<div class="col-xs-8">
+			<h2>Start Timer to See Notes</h2>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4"></div>
+		<div class="col-xs-8">
+			<h1><i class="glyphicon glyphicon-play"></i> &nbsp; <i class="glyphicon glyphicon-pause"></i></h1>
+			<h4>{{timeCount}}</h4>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			{{#each allTheCommentors}}
+				<div class="draggable_user">
+					<div class="user_info">
+						<div class="user_name">{{theUserName}}</div>
+						<div class="user_icon"><img src="{{thePicture}}" /></div>
+						<div class="user_total_comments">{{totalComments}}</div>
+					</div>
+					<hr>
+					<div class="user_speech">{{ currentComments }}</div>
+				</div>
+			{{/each}}
+		</div>
+	</div>
+</template>
