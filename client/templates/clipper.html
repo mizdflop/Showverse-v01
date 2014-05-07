@@ -1,0 +1,48 @@
+<template name="clipper">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-1"></div>
+			<div class="col-xs-9">
+
+				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
+  <!-- Indicators -->
+  
+  <!-- Wrapper for slides -->
+				  <div class="carousel-inner">
+				  	{{#each longNote}}
+					    <div class="item fix-align {{active}}" value="{{timestamp}}">
+					      <h1>{{showMarker}}</h1>
+						</div>
+					{{/each}}
+				  </div>
+
+				  <!-- Controls -->
+				  <a class="left-fixed carousel-control" href="#carousel-example-generic" data-slide="prev">
+				    <span class="glyphicon glyphicon-chevron-left"></span>
+				  </a>
+				  <a class="right-fixed carousel-control" href="#carousel-example-generic" data-slide="next">
+				    <span class="glyphicon glyphicon-chevron-right"></span>
+				  </a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-2"></div>
+		<div class="col-xs-9">
+			<div class="note_enclosure">
+				{{#each notesForScene}}
+					<h3>{{author}}</h3>
+					<p><a href="{{directUri}}">Article Home</a></p>
+					<p>{{text}}</p>
+				{{/each}}
+			</div>
+			<div class="enclosure_comment_box">
+						Comment goes here!!
+			</div>
+
+		</div>
+	</div>
+
+</template>
+

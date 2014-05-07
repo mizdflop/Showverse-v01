@@ -1,0 +1,27 @@
+<template name="admin_edit_bestofnotes">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-1"></div>
+			<div class="col-xs-5">
+				<!-- clickable ist of series that update a Session Variable -->
+
+				<!--Need to add forms for update and delette -->
+
+
+				<h2>Add Notes for an Episode</h2>
+						  {{> quickForm collection="Bestof" doc=editingDoc id="updateNotesForm" type="update"}}
+			</div>
+			<div class="col-xs-5">
+				<h3>Choose a note to edit:</h3>
+				{{#each bestOfNotes}}
+					<p>{{author}}, {{associatedWithScene}}, {{text}}<br>
+						<a href="#" class="updateNote">edit</a>
+					</p>
+				{{/each}}
+			</div>
+
+		</div>
+	</div>
+
+</template>
+

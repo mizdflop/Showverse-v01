@@ -1014,3 +1014,20 @@ LOGIN PAGE
 .comment_reply_form .user_comment .reply_button{
 	margin-top:5px;
 }
+.fix-align{
+	text-align: center;
+}
+.carousel-control.right-fixed{
+	left: auto;
+	right: 0;
+}
+.carousel-control.left-fixed{
+}
+.note_enclosure{
+	width: 265px;
+}
+.enclosure_comment_box{
+    vertical-align: top;
+	float: left;
+
+}

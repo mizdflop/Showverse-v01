@@ -70,6 +70,11 @@ Meteor.publish('commentedUsers', function(){
 Meteor.publish('bestof', function(){
     return Bestof.find({});
 });
+Meteor.publish('bestof_episode', function(idString, seriesTitle){
+    var holder = Episodes.findOne({seriesTitle: seriesTitle, idString: idString});
+   return Bestof.find({episodeId: holder["_id"]});
+});
+
 serverCommentsPerEpisode = new Meteor.Collection("servercommentsperepisode");
 
 //working agg function
