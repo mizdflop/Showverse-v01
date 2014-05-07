@@ -13,8 +13,12 @@
 				    <fieldset>
 				        {{> afQuickField name='episodeId' options=episodesForForm}}
 				        {{> afQuickField name='generalNote'}}
+				        {{> afQuickField name='associatedAtSceneLevel'}}
+				        {{> afQuickField name='associatedWithScene' options=scenesForForm}}
 				        {{> afQuickField name='attachedToTimeline'}}
-				        {{> afQuickField name='runtime'}}
+				        {{#if attachedToTimeline}}
+					        {{> afQuickField name='runtime'}}
+					     {{/if}}
 				        {{> afQuickField name='sourceName'}}
 				        {{> afQuickField name='sourceRootUri'}}
 				        {{> afQuickField name='text' rows=5}}

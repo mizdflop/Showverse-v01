@@ -7,12 +7,26 @@ UI.registerHelper("episodesForForm", function() {
 	var holder = _.map(allEpiodes, function(item){
 		return {value: item["_id"], label: item["seriesTitle"] + " " + item["seasonNumber"] + "." + item["episodeNumber"]};
 	});
+	holder.unshift({value: "", label: "Select an Episode"});
 	return holder;
 });
 UI.registerHelper("typeForForm", function() {
 	return [{label: "Quip", value: "Quip"}, {label: "Longread", value:"Longread"}];
 });
-
+UI.registerHelper("scenesForForm", function(){
+	var holder = Episodes.find({_id: Session.get("episodeId")}).fetch();
+	if(holder[0]!==undefined && holder[0].showMarkers!==undefined && 
+		Session.get("associatedAtSceneLevel")){
+		var arrayHolder = holder[0].showMarkers;
+		var itemsForDropdown = _.map(arrayHolder, function(item){
+				return {value: item["timestamp"], label: item["showMarker"]}
+			});
+		itemsForDropdown.unshift({value: "", label: "Select a Scene marker"});
+		return itemsForDropdown;
+	} else {
+		return [{label: "NA", value:""}];
+	}
+});
 
 UI.registerHelper("getCommentors", function(){
 	return CommentsMeta.find({totalComments: {$gt: 0}});	
