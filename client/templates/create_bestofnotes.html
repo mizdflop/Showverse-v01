@@ -12,20 +12,47 @@
 				    {{#autoForm collection="Bestof" id="insertBookForm" type="insert"}}
 				    <fieldset>
 				        {{> afQuickField name='episodeId' options=episodesForForm}}
-				        {{> afQuickField name='generalNote'}}
-				        {{> afQuickField name='associatedAtSceneLevel'}}
-				        {{> afQuickField name='associatedWithScene' options=scenesForForm}}
-				        {{> afQuickField name='attachedToTimeline'}}
-				        {{#if attachedToTimeline}}
-					        {{> afQuickField name='runtime'}}
-					     {{/if}}
-				        {{> afQuickField name='sourceName'}}
-				        {{> afQuickField name='sourceRootUri'}}
-				        {{> afQuickField name='text' rows=5}}
-				        {{> afQuickField name='directUri'}}
-				        {{> afQuickField name='author'}}
-				        {{> afQuickField name='authorUri'}}
+
 				        {{> afQuickField name='bestOfType' options=typeForForm}}
+
+		        		{{#if currentType itemSelected="Twitter"}}
+				        	{{> afQuickField name='twitterEmbedUri'}}
+			        	{{/if}}
+
+
+		        		{{#if currentType itemSelected="Critics"}}
+		        			{{> getPreviousArticles}}
+					        {{> afQuickField name='sourceName' value=previousSourceName}}
+					        {{> afQuickField name='sourceRootUri' value=previousSourceRootUri}}
+					        {{> afQuickField name='directUri' value=previousDirectUri}}
+					        {{> afQuickField name='author' value=previousAuthor}}
+					        {{> afQuickField name='authorUri' value=previousAuthorUri}}	
+					        {{> afQuickField name='text' rows=5}}
+		        		{{/if}}
+
+
+		        		{{#if currentType itemSelected="Reddit"}}
+					        {{> afQuickField name='redditUriToComment'}}
+					        {{> afQuickField name='redditUriToUserHome'}}
+					        {{> afQuickField name='text' rows=5}}
+				        
+				        {{/if}}
+				        {{#if currentType itemSelected="Memes"}}
+					        {{> afQuickField name='memeImageSource'}}
+					        {{> afQuickField name='memePublisherSourceName'}}
+					        {{> afQuickField name='memePublisherSourceUri'}}
+					    {{/if}}
+					    {{#if currentType itemSelected="any"}}
+					       	{{> afQuickField name='associatedWithScene' options=scenesForForm}}
+					        {{> afQuickField name='attachedToTimeline'}}
+					        {{#if timeLineChecked}}
+						        {{> afQuickField name='runtime'}}
+						    {{/if}}
+						{{/if}}
+
+
+
+
 				    </fieldset>
 				    <button type="submit" class="btn btn-primary">Insert</button>
 				    {{/autoForm}}
@@ -33,5 +60,13 @@
 		</div>
 	</div>
 
+</template>
+<template name="getPreviousArticles">
+	<select id="articleSelector" class="form-control">
+		<option value="">Select Previously Used Source</option>
+		{{#each previousSource}}
+			<option value="{{_id}}">{{sourceName}}, {{author}}</option>
+		{{/each}}
+	</select>
 </template>
 

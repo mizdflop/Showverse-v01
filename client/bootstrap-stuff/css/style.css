@@ -1023,11 +1023,21 @@ LOGIN PAGE
 }
 .carousel-control.left-fixed{
 }
-.note_enclosure{
-	width: 265px;
+/*
+.primary-block{
+	display: inline-block;
+	width: 200px;
+	height: 255px
 }
 .enclosure_comment_box{
+	display: inline-block;
+    width: 100px;
+    height: 100px;
+    margin-right;
+    top: 30px;
+    left: 50px;
     vertical-align: top;
-	float: left;
+	
 
 }
+*/

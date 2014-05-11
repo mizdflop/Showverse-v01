@@ -3,7 +3,7 @@ UI.registerHelper("editableEpisodes", function() {
 });
 
 UI.registerHelper("episodesForForm", function() {
-	var allEpiodes = Episodes.find().fetch();
+	var allEpiodes = Episodes.find({}, {sort: {episodeAirDate: -1}}).fetch();
 	var holder = _.map(allEpiodes, function(item){
 		return {value: item["_id"], label: item["seriesTitle"] + " " + item["seasonNumber"] + "." + item["episodeNumber"]};
 	});
@@ -11,12 +11,14 @@ UI.registerHelper("episodesForForm", function() {
 	return holder;
 });
 UI.registerHelper("typeForForm", function() {
-	return [{label: "Quip", value: "Quip"}, {label: "Longread", value:"Longread"}];
+	var tmpArray = typesOfSnippets;
+	tmpArray.unshift({label:"Pick type of snippet", value:""});
+	return tmpArray;
 });
+
 UI.registerHelper("scenesForForm", function(){
 	var holder = Episodes.find({_id: Session.get("episodeId")}).fetch();
-	if(holder[0]!==undefined && holder[0].showMarkers!==undefined && 
-		Session.get("associatedAtSceneLevel")){
+	if(holder[0]!==undefined && holder[0].showMarkers!==undefined){
 		var arrayHolder = holder[0].showMarkers;
 		var itemsForDropdown = _.map(arrayHolder, function(item){
 				return {value: item["timestamp"], label: item["showMarker"]}

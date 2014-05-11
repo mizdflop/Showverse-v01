@@ -1,0 +1,14 @@
+{
+	"folders":
+	[
+		{
+			"path": "/Users/oldmacbook/Documents/Showverse-2/test4"
+		}
+	],
+	"ternjs": {
+		"libs": ["browser", "underscore", "jquery"],
+		"plugins": {
+			"meteor": {}
+		}
+	}
+}
