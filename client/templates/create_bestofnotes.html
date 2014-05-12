@@ -14,6 +14,17 @@
 				        {{> afQuickField name='episodeId' options=episodesForForm}}
 
 				        {{> afQuickField name='bestOfType' options=typeForForm}}
+					    {{#if currentType itemSelected="any"}}
+					       	{{> afQuickField name='associatedWithScene' options=scenesForForm}}
+					        {{> afQuickField name='attachedToTimeline'}}
+					        {{#if timeLineChecked}}
+						        {{> afQuickField name='runtime'}}
+						    {{/if}}
+					       	{{> afQuickField name='characters'}}
+
+						{{/if}}
+
+
 
 		        		{{#if currentType itemSelected="Twitter"}}
 				        	{{> afQuickField name='twitterEmbedUri'}}
@@ -42,13 +53,6 @@
 					        {{> afQuickField name='memePublisherSourceName'}}
 					        {{> afQuickField name='memePublisherSourceUri'}}
 					    {{/if}}
-					    {{#if currentType itemSelected="any"}}
-					       	{{> afQuickField name='associatedWithScene' options=scenesForForm}}
-					        {{> afQuickField name='attachedToTimeline'}}
-					        {{#if timeLineChecked}}
-						        {{> afQuickField name='runtime'}}
-						    {{/if}}
-						{{/if}}
 
 
 
